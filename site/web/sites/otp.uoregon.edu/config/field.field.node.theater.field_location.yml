@@ -1,0 +1,22 @@
+uuid: 6aa3147a-caf1-48a7-aa04-bf1c92cf5399
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_location
+    - node.type.theater
+  module:
+    - geofield
+id: node.theater.field_location
+field_name: field_location
+entity_type: node
+bundle: theater
+label: Location
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  backend: geofield_backend_default
+field_type: geofield

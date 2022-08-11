@@ -1,0 +1,19 @@
+uuid: d5354cac-6aa5-47fd-b340-a008d1a840bc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_number_of_seats
+    - node.type.theater
+id: node.theater.field_number_of_seats
+field_name: field_number_of_seats
+entity_type: node
+bundle: theater
+label: 'Number of seats'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

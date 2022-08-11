@@ -1,0 +1,29 @@
+uuid: 7a3b8bd4-578b-4225-8dd6-749807993b1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.cities
+  module:
+    - system
+    - views
+  theme:
+    - corporate_lite
+id: views_block__cities_block_1
+theme: corporate_lite
+region: content_top
+weight: -8
+provider: null
+plugin: 'views_block:cities-block_1'
+settings:
+  id: 'views_block:cities-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

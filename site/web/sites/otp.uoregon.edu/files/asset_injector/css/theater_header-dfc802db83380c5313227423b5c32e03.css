@@ -1,0 +1,43 @@
+/**
+ * Style copied from corporateplus\css\components\background-image-block.css.
+ */
+.background-image-block__section {
+  position: relative;
+  padding: 90px 0;
+  overflow: hidden;
+}
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+.background-image.background-image--attachment-fixed {
+  background-attachment: fixed;
+}
+.background-image.background-image--attachment-scroll {
+  background-attachment: scroll;
+}
+.header-content {
+  text-align: center;
+  z-index: 10;
+  opacity: 0.99;
+  padding: 20px 0;
+  background-color: rgba(62, 87, 2, 0.95);
+}
+.header-content .page-title {
+  font-size: 36px;
+  margin: 0;
+}
+.no-header-image {
+  background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/mthood.png");
+}
+.breadcrumb-content {
+  text-align: left;
+  z-index: 10;
+  padding: 20px 5px;
+}

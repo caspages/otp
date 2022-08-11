@@ -1,0 +1,22 @@
+uuid: 45c1de39-f482-4681-b93b-b40eba1ca115
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.city
+id: node.city.promote
+field_name: promote
+entity_type: node
+bundle: city
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

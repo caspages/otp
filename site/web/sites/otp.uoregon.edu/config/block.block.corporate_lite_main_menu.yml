@@ -1,0 +1,27 @@
+uuid: 6ef2f645-13c1-4584-83eb-c61c5634a312
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - corporate_lite
+_core:
+  default_config_hash: TYYAekRfNsVSTeWFZqKls4qjo4oIJ_-b8AfowK3_cSE
+id: corporate_lite_main_menu
+theme: corporate_lite
+region: header
+weight: -6
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 1
+  expand_all_items: false
+visibility: {  }

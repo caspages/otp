@@ -1,0 +1,23 @@
+uuid: ea74c352-489c-4c24-851d-b7e68d639dc2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_promoted_to_home_page
+    - node.type.theater
+id: node.theater.field_promoted_to_home_page
+field_name: field_promoted_to_home_page
+entity_type: node
+bundle: theater
+label: 'Promoted to home page'
+description: 'Check this to promote this theater to the home page.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

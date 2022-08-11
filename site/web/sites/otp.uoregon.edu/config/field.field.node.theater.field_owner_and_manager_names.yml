@@ -1,0 +1,19 @@
+uuid: 2d59a58d-f4f8-47ca-8ee7-83aa6d31292f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_owner_and_manager_names
+    - node.type.theater
+id: node.theater.field_owner_and_manager_names
+field_name: field_owner_and_manager_names
+entity_type: node
+bundle: theater
+label: 'Owner and manager names'
+description: "Examples:\r\n<ul>\r\n<li>John Smith</li>\r\n<li>W. John Smith</li>\r\n<li>W.J. Smith</li>\r\n<li>William J. Smith</li>\r\n</ul>"
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

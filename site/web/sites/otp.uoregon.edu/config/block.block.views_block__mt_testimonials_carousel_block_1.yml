@@ -1,0 +1,25 @@
+uuid: c1e481ce-447c-4783-ba08-235cb3f7f52b
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.mt_testimonials_carousel
+  module:
+    - views
+  theme:
+    - corporate_lite
+id: views_block__mt_testimonials_carousel_block_1
+theme: corporate_lite
+region: content
+weight: -3
+provider: null
+plugin: 'views_block:mt_testimonials_carousel-block_1'
+settings:
+  id: 'views_block:mt_testimonials_carousel-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility: {  }

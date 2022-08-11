@@ -1,0 +1,21 @@
+uuid: e4e1cc80-b8d4-4e03-b669-2f2cf37b635d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_works_cited
+    - node.type.city
+  module:
+    - text
+id: node.city.field_works_cited
+field_name: field_works_cited
+entity_type: node
+bundle: city
+label: 'Works cited'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

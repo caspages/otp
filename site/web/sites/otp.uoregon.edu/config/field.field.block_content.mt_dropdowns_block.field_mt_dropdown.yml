@@ -1,0 +1,54 @@
+uuid: dceba06e-f3c2-4fab-bd63-311dbea437c9
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.mt_dropdowns_block
+    - field.storage.block_content.field_mt_dropdown
+    - paragraphs.paragraphs_type.mt_dropdown
+  module:
+    - entity_reference_revisions
+id: block_content.mt_dropdowns_block.field_mt_dropdown
+field_name: field_mt_dropdown
+entity_type: block_content
+bundle: mt_dropdowns_block
+label: Dropdown
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      mt_dropdown: mt_dropdown
+    target_bundles_drag_drop:
+      mt_collapse:
+        weight: 10
+        enabled: false
+      mt_dropdown:
+        weight: 11
+        enabled: true
+      mt_fancy_linked_image:
+        weight: 12
+        enabled: false
+      mt_fancy_tab:
+        weight: 13
+        enabled: false
+      mt_featured_linked_text_tile:
+        weight: 14
+        enabled: false
+      mt_main_slideshow_slide:
+        weight: 15
+        enabled: false
+      mt_media_tab:
+        weight: 16
+        enabled: false
+      mt_tab:
+        weight: 17
+        enabled: false
+      mt_video_gallery_slide:
+        weight: 18
+        enabled: false
+field_type: entity_reference_revisions

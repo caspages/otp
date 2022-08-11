@@ -1,0 +1,25 @@
+uuid: b5157d73-c9eb-46ea-b569-2a960c119108
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:0d99b7af-ab20-4530-9783-067439160b50'
+  module:
+    - block_content
+  theme:
+    - corporate_lite
+id: copyright
+theme: corporate_lite
+region: sub_footer_first
+weight: -14
+provider: null
+plugin: 'block_content:0d99b7af-ab20-4530-9783-067439160b50'
+settings:
+  id: 'block_content:0d99b7af-ab20-4530-9783-067439160b50'
+  label: Copyright
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

@@ -1,0 +1,49 @@
+uuid: 367223f8-b081-4b42-8149-b34c4909923c
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - node
+    - options
+third_party_settings:
+  field_permissions:
+    permission_type: custom
+id: node.field_blog_icon
+field_name: field_blog_icon
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: cp-clapper
+      label: 'Clapper Board'
+    -
+      value: fa-film
+      label: Film
+    -
+      value: cp-film-real
+      label: 'Film Reel'
+    -
+      value: cp-record
+      label: Record
+    -
+      value: cp-ticket
+      label: 'Ticket 1'
+    -
+      value: fa-ticket
+      label: 'Ticket 2'
+    -
+      value: fa-video-camera
+      label: 'Video Camera'
+    -
+      value: cp-video-record
+      label: 'Video Record'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

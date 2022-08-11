@@ -1,0 +1,30 @@
+uuid: a9a2bf1b-337a-4d0d-8402-47ad3b683e91
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:80b35926-3e71-49bf-84be-45f6b6054180'
+  module:
+    - block_content
+    - system
+  theme:
+    - corporate_lite
+id: citiesheaderblock
+theme: corporate_lite
+region: content_top
+weight: -9
+provider: null
+plugin: 'block_content:80b35926-3e71-49bf-84be-45f6b6054180'
+settings:
+  id: 'block_content:80b35926-3e71-49bf-84be-45f6b6054180'
+  label: 'Cities Header Block'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

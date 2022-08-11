@@ -1,0 +1,24 @@
+uuid: c2bcc300-d690-4da2-956e-9b3cd41a85af
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.mt_dropdown.field_mt_dropdown_block
+    - field.field.paragraph.mt_dropdown.field_mt_dropdown_trigger_icon
+    - paragraphs.paragraphs_type.mt_dropdown
+id: paragraph.mt_dropdown.default
+targetEntityType: paragraph
+bundle: mt_dropdown
+mode: default
+content:
+  field_mt_dropdown_block:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  field_mt_dropdown_trigger_icon: true

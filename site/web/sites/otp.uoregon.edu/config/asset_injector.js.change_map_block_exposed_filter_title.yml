@@ -1,0 +1,21 @@
+uuid: 7c03f95b-2f1b-40b8-9e50-a9ad8ff0c427
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: change_map_block_exposed_filter_title
+label: 'Change map block exposed filter title'
+code: "(function ($, Drupal) {\r\n  Drupal.behaviors.theatersMapBlockExposedFilter = {\r\n    attach: function (context, settings) {\r\n      $(\"#views-exposed-form-oregon-theater-map-map-block label[for='edit-title']\").attr('for', 'edit-title-map-block');\r\n      $('#views-exposed-form-oregon-theater-map-map-block #edit-title').attr('id', 'edit-title-map-block');\r\n      $(\"#views-exposed-form-oregon-theater-map-map-block label[for='edit-theater-city']\").attr('for', 'edit-theater-city-map-block');\r\n      $('#views-exposed-form-oregon-theater-map-map-block #edit-theater-city').attr('id', 'edit-theater-city-map-block');\r\n      $('#views-exposed-form-oregon-theater-map-map-block #edit-submit-oregon-theater-map').attr('id', 'edit-submit-oregon-theater-map-block');\r\n    }\r\n  };\r\n})(jQuery, Drupal);"
+noscript: ''
+noscriptRegion: {  }
+jquery: true
+header: false
+preprocess: true
+conditions:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /theaters
+contexts: {  }
+conditions_require_all: true

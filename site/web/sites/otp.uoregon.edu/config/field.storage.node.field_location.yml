@@ -1,0 +1,24 @@
+uuid: 92609b3d-d75d-48f2-a802-c5dec6c49099
+langcode: en
+status: true
+dependencies:
+  module:
+    - field_permissions
+    - geofield
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_location
+field_name: field_location
+entity_type: node
+type: geofield
+settings:
+  backend: geofield_backend_default
+module: geofield
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

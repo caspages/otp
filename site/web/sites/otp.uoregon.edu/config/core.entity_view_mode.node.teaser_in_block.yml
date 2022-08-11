@@ -1,0 +1,10 @@
+uuid: f8ae4e6d-4d25-4112-9680-68a6b82e256a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.teaser_in_block
+label: 'Teaser In Block'
+targetEntityType: node
+cache: true

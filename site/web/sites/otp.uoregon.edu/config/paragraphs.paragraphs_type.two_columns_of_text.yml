@@ -1,0 +1,9 @@
+uuid: 454aa017-3670-484f-98fe-0fc026c6805b
+langcode: en
+status: true
+dependencies: {  }
+id: two_columns_of_text
+label: 'Section (2-column)'
+icon_uuid: null
+description: 'Used in theater content type to create two columns of text.'
+behavior_plugins: {  }

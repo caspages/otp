@@ -1,0 +1,30 @@
+uuid: eb7a7755-1474-4ddd-8d37-5640cb7290ff
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.content
+  module:
+    - system
+    - views
+  theme:
+    - corporate_lite
+id: views_block__content_block_1
+theme: corporate_lite
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:content-block_1'
+settings:
+  id: 'views_block:content-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/user/*'

@@ -1,0 +1,21 @@
+uuid: 6f4581c3-2b34-4aeb-ad5b-711a618de875
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_number_of_seats
+field_name: field_number_of_seats
+entity_type: node
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

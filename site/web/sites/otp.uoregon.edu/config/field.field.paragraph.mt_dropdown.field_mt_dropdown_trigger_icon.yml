@@ -1,0 +1,19 @@
+uuid: 568f8d24-ba0e-4d9a-b6bb-6b3498c5d03e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_mt_dropdown_trigger_icon
+    - paragraphs.paragraphs_type.mt_dropdown
+id: paragraph.mt_dropdown.field_mt_dropdown_trigger_icon
+field_name: field_mt_dropdown_trigger_icon
+entity_type: paragraph
+bundle: mt_dropdown
+label: 'Dropdown Trigger Icon'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

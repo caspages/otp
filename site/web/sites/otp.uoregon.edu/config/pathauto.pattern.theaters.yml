@@ -1,0 +1,22 @@
+uuid: 347a8268-2139-4645-a1bb-a3c15c4feeda
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: theaters
+label: Theaters
+type: 'canonical_entities:node'
+pattern: 'theaters/[node:title]'
+selection_criteria:
+  a75dfb4c-11f0-4368-9e11-08d6f6b86041:
+    id: node_type
+    negate: false
+    uuid: a75dfb4c-11f0-4368-9e11-08d6f6b86041
+    context_mapping:
+      node: node
+    bundles:
+      theater: theater
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -1,0 +1,38 @@
+uuid: 88d5e132-01b8-449f-abba-b56187a57652
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image
+    - node.type.city
+  module:
+    - image
+id: node.city.field_image
+field_name: field_image
+entity_type: node
+bundle: city
+label: 'Gallery image(s)'
+description: 'Upload one to many images to display in a gallery slideshow. Each image''s ''title'' text displays below the image as a caption. Recommended pixel dimensions - W: 500 px / H: 500 px or 1:1 ratio. If you choose an image that is smaller than W: 500 px / H: 500 px the image will be stretched to fit the remaining space causing the image to appear blurry. If you choose a bigger image, the gallery will only display a center cropped version of the image of dimensions W: 500 px / H: 500.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg'
+  max_filesize: '32 MB'
+  max_resolution: ''
+  min_resolution: ''
+  alt_field: true
+  alt_field_required: true
+  title_field: true
+  title_field_required: true
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: null
+    height: null
+field_type: image

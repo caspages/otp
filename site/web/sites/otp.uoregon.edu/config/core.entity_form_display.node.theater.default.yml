@@ -1,0 +1,251 @@
+uuid: 11221c80-fa8c-404c-9639-dc6c8b4d596a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.theater.body
+    - field.field.node.theater.field_additional_facts
+    - field.field.node.theater.field_city
+    - field.field.node.theater.field_header_address
+    - field.field.node.theater.field_header_date
+    - field.field.node.theater.field_header_image
+    - field.field.node.theater.field_image
+    - field.field.node.theater.field_location
+    - field.field.node.theater.field_number_of_seats
+    - field.field.node.theater.field_owner_and_manager_names
+    - field.field.node.theater.field_paragraphs
+    - field.field.node.theater.field_promoted_to_home_page
+    - field.field.node.theater.field_works_cited
+    - image.style.thumbnail
+    - node.type.theater
+  module:
+    - datetime_range
+    - field_group
+    - geofield_map
+    - image
+    - paragraphs
+    - path
+    - text
+third_party_settings:
+  field_group:
+    group_homepage_promotion:
+      children:
+        - field_promoted_to_home_page
+        - body
+      label: 'Homepage Promotion'
+      region: content
+      parent_name: ''
+      weight: 7
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        required_fields: false
+    group_header_content:
+      children:
+        - title
+        - field_header_address
+        - field_header_date
+        - field_header_image
+      label: 'Header Content'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        required_fields: false
+    group_quick_facts:
+      children:
+        - field_number_of_seats
+        - field_owner_and_manager_names
+        - field_additional_facts
+      label: 'Quick Facts'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        id: ''
+        description: ''
+        required_fields: false
+id: node.theater.default
+targetEntityType: node
+bundle: theater
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 8
+    region: content
+    settings:
+      rows: 3
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_additional_facts:
+    type: string_textfield
+    weight: 10
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_city:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_header_address:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_header_date:
+    type: daterange_default
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_header_image:
+    type: image_image
+    weight: 4
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_image:
+    type: image_image
+    weight: 5
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  field_location:
+    type: geofield_map
+    weight: 3
+    region: content
+    settings:
+      html5_geolocation: true
+      default_value:
+        lat: !!float 0
+        lon: !!float 0
+      map_library: leaflet
+      map_google_api_key: ''
+      map_google_places:
+        places_control: true
+        places_additional_options: ''
+      map_dimensions:
+        width: 100%
+        height: 450px
+      map_type_google: roadmap
+      map_type_leaflet: OpenStreetMap_Mapnik
+      map_type_selector: true
+      zoom_level: 5
+      zoom:
+        start: 6
+        focus: 12
+        min: 0
+        max: 22
+      click_to_find_marker: false
+      click_to_place_marker: false
+      hide_coordinates: false
+      geoaddress_field:
+        field: '0'
+        hidden: false
+        disabled: true
+    third_party_settings: {  }
+  field_number_of_seats:
+    type: string_textfield
+    weight: 7
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_owner_and_manager_names:
+    type: string_textfield
+    weight: 8
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_paragraphs:
+    type: entity_reference_paragraphs
+    weight: 4
+    region: content
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+    third_party_settings: {  }
+  field_promoted_to_home_page:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_works_cited:
+    type: text_textarea
+    weight: 6
+    region: content
+    settings:
+      rows: 2
+      placeholder: ''
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 11
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 8
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  promote: true
+  sticky: true

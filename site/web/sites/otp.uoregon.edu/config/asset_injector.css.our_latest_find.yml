@@ -1,0 +1,36 @@
+uuid: 6a99be10-dbdf-4fd4-86c5-84959d558bef
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: our_latest_find
+label: 'Our Latest Find and home page blocks'
+code: |-
+  #block-corporateplus-content,
+  #block-corporateplus-content .node__header,
+  #block-timelineheaderblock {
+    padding-bottom: 0;
+  }
+  #block-timelineheaderblock h2.title {
+    margin: 20px 0;
+  }
+  .our-latest-find .views-field-title h3 {
+    letter-spacing: normal;
+    text-transform: none;
+    margin-top: 0;
+  }
+media: all
+preprocess: true
+conditions:
+  current_theme:
+    id: current_theme
+    theme:
+      corporate_lite: corporate_lite
+    negate: false
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'
+contexts: {  }
+conditions_require_all: true

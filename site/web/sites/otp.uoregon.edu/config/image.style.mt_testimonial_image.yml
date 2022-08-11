@@ -1,0 +1,15 @@
+uuid: f39dd703-ec67-4192-ad10-88bd795ea4b1
+langcode: en
+status: true
+dependencies: {  }
+name: mt_testimonial_image
+label: 'Gallery Image (500x500)'
+effects:
+  6a4821a9-0fb6-4029-b466-3076721d8316:
+    uuid: 6a4821a9-0fb6-4029-b466-3076721d8316
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 500
+      height: 500
+      anchor: center-center

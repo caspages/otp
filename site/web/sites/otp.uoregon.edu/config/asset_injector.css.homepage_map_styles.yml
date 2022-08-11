@@ -1,0 +1,72 @@
+uuid: a330b5cf-bcdc-4daa-afbb-fdd3dbd4a428
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - system
+id: homepage_map_styles
+label: 'Homepage & City Map'
+code: |-
+  /* Remove the right/left margin around the map by resetting the grid properties in these containers */
+  #banner > div,
+  #banner .banner__container .col-md-12 {
+    padding: 0;
+  }
+  #banner .banner__container .row {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+
+  /* Restrict the map to 90% of the display height so users can scroll on a small screen */
+  #leaflet-map-view-oregon-theater-map-block-1,
+  #leaflet-map-view-oregon-theater-map-map-block {
+    max-height: 90vh;
+  }
+
+
+  /* Adjust popup styles for the homepage map */
+  .leaflet-popup {
+    width: 250px;
+  }
+  .leaflet-popup .pin-description {
+    margin: 0 auto;
+  }
+  .leaflet-popup h1,
+  .leaflet-popup .pin-description--image,
+  .leaflet-popup .pin-description--year-range {
+    text-align: center;
+  }
+  .leaflet-popup h1 {
+    font-size: 22px;
+  }
+  .leaflet-popup a {
+    color: #507003;
+  }
+  .leaflet-popup .pin-description--year-range {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+media: all
+preprocess: true
+conditions:
+  current_theme:
+    id: current_theme
+    theme:
+      corporate_lite: corporate_lite
+    negate: false
+  node_type:
+    id: node_type
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      city: city
+      page: page
+  request_path:
+    id: request_path
+    negate: false
+    pages: /theaters
+contexts: {  }
+conditions_require_all: false

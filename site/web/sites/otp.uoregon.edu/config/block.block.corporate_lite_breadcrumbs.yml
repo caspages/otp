@@ -1,0 +1,22 @@
+uuid: 654a7f6f-abf9-4220-b69c-9123b8fff745
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - corporate_lite
+_core:
+  default_config_hash: MKAYeA2BLgKORvWvXdloOEom654L4E9GK2GTN426iyg
+id: corporate_lite_breadcrumbs
+theme: corporate_lite
+region: highlighted
+weight: -5
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,25 @@
+uuid: b570be37-eb0b-4702-8de5-05cc17e2dc2f
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime_range
+    - field_permissions
+    - node
+third_party_settings:
+  field_permissions:
+    permission_type: public
+id: node.field_header_date
+field_name: field_header_date
+entity_type: node
+type: daterange
+settings:
+  datetime_type: date
+  optional_end_date: true
+module: datetime_range
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

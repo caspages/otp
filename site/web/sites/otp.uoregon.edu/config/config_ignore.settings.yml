@@ -1,0 +1,10 @@
+_core:
+  default_config_hash: UVH1aJ4b44UM-VdPVN7hNNuuVqfReJxwfVeDQH1Hvsk
+ignored_config_entities:
+  - block.block.copyright
+  - block.block.homepagemap
+  - block.block.about
+  - block.block.contactus
+  - block.block.citiesheaderblock
+  - block.block.contactintroductoryblock
+  - block.block.timelineheaderblock

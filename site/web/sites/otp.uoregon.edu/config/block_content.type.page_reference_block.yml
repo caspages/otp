@@ -1,0 +1,8 @@
+uuid: eb49a93b-1e17-412a-9e3e-1215c5e934e0
+langcode: en
+status: true
+dependencies: {  }
+id: page_reference_block
+label: 'Page Reference Block'
+revision: 0
+description: 'Show a page it references to.'

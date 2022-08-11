@@ -1,0 +1,33 @@
+uuid: c0111465-8207-41c5-b9cd-1f31666ae71f
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.theater_breadcrumb
+  module:
+    - node
+    - views
+  theme:
+    - corporate_lite
+id: views_block__theater_breadcrumb_block_theater_breadcrumb
+theme: corporate_lite
+region: banner
+weight: 0
+provider: null
+plugin: 'views_block:theater_breadcrumb-block_theater_breadcrumb'
+settings:
+  id: 'views_block:theater_breadcrumb-block_theater_breadcrumb'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      theater: theater

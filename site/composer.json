@@ -1,0 +1,210 @@
+{
+  "name": "uo/otp-drupal-platform",
+  "description": "This creates a Drupal 9 site on our central Drupal hosting platform.",
+  "type": "project",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "IS Dev Services",
+      "role": "Developers"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packages.drupal.org/8"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "afarkas/lazysizes",
+        "version": "5.1.2",
+        "dist": {
+          "url": "https://github.com/aFarkas/lazysizes/archive/5.1.2.zip",
+          "type": "zip"
+        },
+        "type": "drupal-library"
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/div",
+        "version": "4.10.1",
+        "type": "drupal-library",
+        "extra": {
+          "installer-name": "ckeditor/plugins/div"
+        },
+        "dist": {
+          "url": "https://download.ckeditor.com/div/releases/div_4.10.1.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "ckeditor/fakeobjects",
+        "version": "4.12.1",
+        "dist": {
+          "url": "https://download.ckeditor.com/fakeobjects/releases/fakeobjects_4.12.1.zip",
+          "type": "zip"
+        },
+        "type": "drupal-library"
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "drupal/jquery_ui_touch_punch",
+        "version": "1.0.x-dev",
+        "type": "drupal-library",
+        "source": {
+            "url": "https://github.com/furf/jquery-ui-touch-punch.git",
+            "type": "git",
+            "reference": "refs/heads/master"
+        }
+      }
+    }
+  ],
+  "require": {
+    "php": "^8.0",
+    "afarkas/lazysizes": "5.1.2",
+    "ckeditor/div": "4.10.1",
+    "ckeditor/fakeobjects": "4.12.1",
+    "composer/installers": "^1.9",
+    "cweagans/composer-patches": "^1.6.5",
+    "drupal/asset_injector": "2.12",
+    "drupal/auditfiles": "2.11",
+    "drupal/background_image_formatter": "1.7",
+    "drupal/backup_migrate": "5.0.1",
+    "drupal/block_content_revision_ui": "2.127.2",
+    "drupal/captcha": "1.4.0",
+    "drupal/ckeditor_div_manager": "^2.0",
+    "drupal/config_filter": "1.10",
+    "drupal/config_ignore": "2.3",
+    "drupal/console": "1.9.7",
+    "drupal/core-composer-scaffold": "9.4.5",
+    "drupal/core-recommended": "9.4.5",
+    "drupal/corporate_lite": "^1.2",
+    "drupal/crop": "^2.2",
+    "drupal/csv_serialization": "2.1",
+    "drupal/ctools": "3.9.0",
+    "drupal/date_popup": "1.1",
+    "drupal/diff": "1.0.0",
+    "drupal/editor_advanced_link": "2.0.0",
+    "drupal/editoria11y": "1.0.8",
+    "drupal/embed": "1.4.0",
+    "drupal/entity": "1.2.0",
+    "drupal/entity_browser": "2.8",
+    "drupal/entity_embed": "1.2.0",
+    "drupal/entity_reference_revisions": "1.9.0",
+    "drupal/eu_cookie_compliance": "1.19.0",
+    "drupal/externalauth": "1.4.0",
+    "drupal/fakeobjects": "1.1.0",
+    "drupal/field_group": "3.2",
+    "drupal/field_permissions": "1.2",
+    "drupal/file_browser": "1.3.0",
+    "drupal/fontyourface": "3.6",
+    "drupal/footnotes": "3.0.1",
+    "drupal/geocoder": "3.29",
+    "drupal/geofield": "1.44",
+    "drupal/geofield_map": "2.85",
+    "drupal/google_analytics": "3.1.0",
+    "drupal/google_tag": "1.4.0",
+    "drupal/image_effects": "3.2.0",
+    "drupal/image_resize_filter": "1.1.0",
+    "drupal/image_widget_crop": "2.3.0",
+    "drupal/jquery_ui_touch_punch": "^1.0",
+    "drupal/jsonapi_image_styles": "2.0.1",
+    "drupal/lazy": "3.10.0",
+    "drupal/leaflet": "2.2.5",
+    "drupal/leaflet_more_maps": "2.1.2",
+    "drupal/linkchecker": "1.x-dev",
+    "drupal/linkit": "6.0.0-beta3",
+    "drupal/media_entity_file_replace": "1.0.0",
+    "drupal/menu_block": "1.7.0",
+    "drupal/migrate_plus": "5.1.0",
+    "drupal/migrate_source_csv": "3.4",
+    "drupal/migrate_tools": "5.0.0",
+    "drupal/node_edit_protection": "1.0",
+    "drupal/optional_end_date": "1.3.0",
+    "drupal/override_node_options": "2.6.0",
+    "drupal/paragraphs": "1.14.0",
+    "drupal/pathauto": "1.11.0",
+    "drupal/rabbit_hole": "1.0.0-beta10",
+    "drupal/recaptcha": "3.0.0",
+    "drupal/redirect": "1.7.0",
+    "drupal/restui": "1.20",
+    "drupal/scanner": "1.0.0-rc6",
+    "drupal/simple_sitemap": "3.11.0",
+    "drupal/token": "1.11.0",
+    "drupal/typed_data": "1.0.0-beta1",
+    "drupal/url_redirect": "2.62",
+    "drupal/verf": "1.0",
+    "drupal/view_unpublished": "1.0.0",
+    "drupal/views_data_export": "1.1",
+    "league/csv": "^9.6",
+    "phayes/geophp": "^1.2",
+    "vlucas/phpdotenv": "^4.0",
+    "webflo/drupal-finder": "^1.2.0",
+    "willdurand/geocoder": "^4.2",
+    "zaporylie/composer-drupal-optimizations": "^1.0"
+  },
+  "require-dev": {
+    "drupal/core-dev": "9.4.5",
+    "drush/drush": "^10.1.1"
+  },
+  "conflict": {
+    "drupal/drupal": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "cweagans/composer-patches": true,
+      "composer/installers": true,
+      "drupal/core-composer-scaffold": true,
+      "zaporylie/composer-drupal-optimizations": true,
+      "drupal/console-extend-plugin": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "extra": {
+    "composer-exit-on-patch-failure": true,
+    "patchLevel": {
+      "drupal/core": "-p2"
+    },
+    "installer-paths": {
+      "web/core": [
+        "type:drupal-core"
+      ],
+      "web/libraries/{$name}": [
+        "type:drupal-library"
+      ],
+      "web/modules/contrib/{$name}": [
+        "type:drupal-module"
+      ],
+      "web/profiles/contrib/{$name}": [
+        "type:drupal-profile"
+      ],
+      "web/themes/{$name}": [
+        "type:drupal-theme"
+      ],
+      "drush/Commands/{$name}": [
+        "type:drupal-drush"
+      ]
+    },
+    "patches": {
+      "drupal/core": {
+        "Implement a generic revision UI": "https://www.drupal.org/files/issues/2021-10-06/2350939-181-92.patch"
+      }
+    },
+    "drupal-scaffold": {
+      "locations": {
+        "web-root": "web/"
+      }
+    }
+  }
+}

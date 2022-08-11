@@ -1,0 +1,45 @@
+uuid: 2d1e5ec5-f402-492f-9a67-86df83d31d07
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: theaters_maps_and_table
+label: 'Theaters directory and map, user content table'
+code: |-
+  #views-exposed-form-oregon-theater-map-map-block {
+    display: none;
+  }
+  #views-exposed-form-oregon-theater-map-page-theaters>div {
+    display: flex;
+  }
+  #views-exposed-form-content-block-1 select,
+  #views-exposed-form-oregon-theater-map-page-theaters select {
+    margin: 0 0;
+  }
+  #views-exposed-form-oregon-theater-map-page-theaters .form-actions {
+    margin: auto 0 20px 10px;
+  }
+  #views-exposed-form-oregon-theater-map-page-theaters .form-actions input {
+    margin: 0 0;
+    line-height: 27px;
+    padding: 14px 15px;
+  }
+  /* Zebra-stripe rows of the theater directory table. */
+  .theater-directory-table > .view-content > .views-table tbody tr:nth-of-type(odd) {
+    background-color: #c0c0c026;
+  }
+media: all
+preprocess: true
+conditions:
+  current_theme:
+    id: current_theme
+    theme:
+      corporate_lite: corporate_lite
+    negate: false
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/theaters\r\n/user/*"
+contexts: {  }
+conditions_require_all: true

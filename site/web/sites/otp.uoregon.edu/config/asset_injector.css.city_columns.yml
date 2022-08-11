@@ -1,0 +1,54 @@
+uuid: 81e385a1-635b-46ed-8bd2-6241f457d4ae
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: city_columns
+label: 'City Columns and Header'
+code: |-
+  #block-citiesheaderblock {
+    padding-bottom: 15px;
+  }
+  ul.otp-cities li a {
+    text-decoration: underline;
+  }
+  ul.otp-cities li a:hover,
+  ul.otp-cities li a:focus {
+    text-decoration: none;
+  }
+
+  /* Taken from https://www.w3schools.com/css/css_rwd_mediaqueries.asp */
+  @media (min-width: 600px) {
+    ul.otp-cities {
+      -webkit-column-count: 1;
+      -moz-column-count: 1;
+      column-count: 1;
+    }
+  }
+
+  @media (min-width: 768px) {
+    ul.otp-cities {
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+    }
+  }
+
+  @media (min-width: 992px) {
+    ul.otp-cities {
+      -webkit-column-count: 3;
+      -moz-column-count: 3;
+      column-count: 3;
+    }
+  }
+media: all
+preprocess: true
+conditions:
+  current_theme:
+    id: current_theme
+    theme:
+      corporate_lite: corporate_lite
+    negate: false
+contexts: {  }
+conditions_require_all: true

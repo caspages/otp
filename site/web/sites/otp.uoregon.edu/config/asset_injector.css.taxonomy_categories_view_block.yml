@@ -1,0 +1,22 @@
+uuid: 81632331-0fbc-4ece-a92e-31cc2202a68f
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: taxonomy_categories_view_block
+label: 'Taxonomy Categories View Block'
+code: |-
+  #block-taxonomy-view-categories-view-block .is-active {
+    font-weight: bold;
+  }
+media: all
+preprocess: true
+conditions:
+  current_theme:
+    id: current_theme
+    theme:
+      corporate_lite: corporate_lite
+    negate: false
+contexts: {  }
+conditions_require_all: true

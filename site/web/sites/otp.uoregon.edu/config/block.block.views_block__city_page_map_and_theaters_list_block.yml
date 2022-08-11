@@ -1,0 +1,33 @@
+uuid: 5f74a25f-8c4b-4041-af45-8c27c6807b42
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.city_page_map_and_theaters_list
+  module:
+    - node
+    - views
+  theme:
+    - corporate_lite
+id: views_block__city_page_map_and_theaters_list_block
+theme: corporate_lite
+region: content
+weight: -11
+provider: null
+plugin: 'views_block:city_page_map_and_theaters_list-block_1'
+settings:
+  id: 'views_block:city_page_map_and_theaters_list-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      city: city

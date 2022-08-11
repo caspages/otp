@@ -1,0 +1,29 @@
+uuid: c5c66b83-2193-4876-9660-fd19995486fd
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - system
+id: leaflet_fullscreen_button_empty_link_fix
+label: 'Leaflet Fullscreen Button Empty Link Fix'
+code: "(function ($, Drupal) {\r\n  Drupal.behaviors.leafletMapFullscreenButtonLinkFix = {\r\n    attach: function (context, settings) {\r\n      $(document).bind('leaflet.map', function(event, map, lMap) {\r\n        $('.leaflet-control-fullscreen-button').html(\"<span class='sr-only'>View/exit fullscreen link</span>\");\r\n      });\r\n    }\r\n  };\r\n})(jQuery, Drupal);"
+noscript: ''
+noscriptRegion: {  }
+jquery: true
+header: false
+preprocess: true
+conditions:
+  node_type:
+    id: node_type
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      city: city
+  request_path:
+    id: request_path
+    negate: false
+    pages: /theaters
+contexts: {  }
+conditions_require_all: false

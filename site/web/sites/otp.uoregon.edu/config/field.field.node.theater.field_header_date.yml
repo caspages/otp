@@ -1,0 +1,21 @@
+uuid: 6c67dc6f-46fc-46a6-9d02-941eedef326f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_header_date
+    - node.type.theater
+  module:
+    - datetime_range
+id: node.theater.field_header_date
+field_name: field_header_date
+entity_type: node
+bundle: theater
+label: 'Dates of operation'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: daterange

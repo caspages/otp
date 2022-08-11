@@ -1,0 +1,29 @@
+uuid: 48bbccd4-6a77-4bbc-b430-54f3bc2f6b8f
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.taxonomy_categories_view
+  module:
+    - system
+    - views
+  theme:
+    - corporate_lite
+id: taxonomy_view_categories_view_block
+theme: corporate_lite
+region: sidebar_second
+weight: 0
+provider: null
+plugin: 'views_block:taxonomy_categories_view-categories_view_block'
+settings:
+  id: 'views_block:taxonomy_categories_view-categories_view_block'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/categories/*\r\n/articles/*"

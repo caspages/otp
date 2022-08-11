@@ -1,0 +1,27 @@
+uuid: e03f6168-df3f-44ac-adbf-842b48e6b6e1
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - corporate_lite
+_core:
+  default_config_hash: 7lrMsjXNlbbGszawnodRXmSt7Jhz4-SHgca7aP5yqzc
+id: corporate_lite_page_title
+theme: corporate_lite
+region: content
+weight: -13
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    context_mapping: {  }
+    pages: "/home\r\n/theaters/*"

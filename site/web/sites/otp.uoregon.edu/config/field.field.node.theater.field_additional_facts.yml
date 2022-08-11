@@ -1,0 +1,19 @@
+uuid: 7e76c9c8-8173-4e3f-92c1-afb07c16a183
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_additional_facts
+    - node.type.theater
+id: node.theater.field_additional_facts
+field_name: field_additional_facts
+entity_type: node
+bundle: theater
+label: 'Additional facts'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,34 @@
+uuid: c1a56b46-b679-4d6b-853b-442b850b6e3a
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.mt_benefits
+  module:
+    - node
+    - views
+  theme:
+    - corporate_lite
+id: views_block__mt_benefits_block_1
+theme: corporate_lite
+region: content
+weight: -1
+provider: null
+plugin: 'views_block:mt_benefits-block_1'
+settings:
+  id: 'views_block:mt_benefits-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  context_mapping: {  }
+  views_label: ''
+  items_per_page: none
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      city: city
+      theater: theater

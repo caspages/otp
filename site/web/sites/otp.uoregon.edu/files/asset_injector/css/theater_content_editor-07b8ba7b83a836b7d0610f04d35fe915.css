@@ -1,0 +1,84 @@
+/*******************************************************************************
+
+  Apply to all content editor forms.
+  
+ ******************************************************************************/
+/* Rich text format options should not have a gap between it and the field. */
+.text-format-wrapper .form-type-textarea {
+    margin: 0 !important;
+}
+
+/*******************************************************************************
+
+  Apply only to the theater content type editor.
+
+ ******************************************************************************/
+/* All multi-value fields: extra margin top/bottom, border. */
+#node-theater-form div[id$=add-more-wrapper],
+#node-theater-edit-form div[id$=add-more-wrapper]{
+  border: 1px solid #c0c0c0;
+  border-radius: 2px;
+  margin: 2em 0;
+}
+#node-theater-form .tabledrag-toggle-weight-wrapper,
+#node-theater-edit-form .tabledrag-toggle-weight-wrapper {
+  padding: 3px 5px;
+}
+/* All multi-value fields:: 'add item'-btn: no margin. */
+#node-theater-form div[id$=add-more-wrapper] .form-item,
+#node-theater-edit-form div[id$=add-more-wrapper] .form-item {
+  margin: 0;
+}
+/* All multi-value fields:: 'add item'-btn wrap, desc text: consistent margin. */
+#node-theater-form div[id$=add-more-wrapper] .description,
+#node-theater-form div[id$=add-more-wrapper] .clearfix,
+#node-theater-edit-form div[id$=add-more-wrapper] .description,
+#node-theater-edit-form div[id$=add-more-wrapper] .clearfix {
+  margin: 0.5em;
+}
+
+/* Text input: stretch the full width avaliable. */
+#node-theater-form input[type=text],
+#node-theater-edit-form input[type=text] {
+  width: 100%;
+}
+
+/* Summary text area: limit height */
+#node-theater-form .field--name-body .cke_contents,
+#node-theater-edit-form .field--name-body .cke_contents {
+  max-height: 120px;
+}
+
+/* Works cited text area: limit height */
+#node-theater-form .field--name-field-works-cited .cke_contents,
+#node-theater-edit-form .field--name-field-works-cited .cke_contents{
+  max-height: 50px;
+}
+
+/* Header image field: rounded border. */
+#node-theater-form .field--name-field-header-image,
+#node-theater-edit-form .field--name-field-header-image{
+    border: 1px solid #c0c0c0;
+    border-radius: 2px;
+    padding: 0 18px;
+}
+
+/* Location field: suppress embeded fieldset style. */
+#node-theater-form .field--name-field-location fieldset fieldset,
+#node-theater-edit-form .field--name-field-location fieldset fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body field:: column textareas: match margins of multi-value fields. */
+#node-theater-form .paragraphs-subform,
+#node-theater-edit-form .paragraphs-subform {
+    padding-right: 12px;
+}
+
+/* Body field:: right-column field: space from left-column field. */
+#node-theater-form .field--name-field-right-column,
+#node-theater-edit-form .field--name-field-right-column {
+  margin-top: 2em;
+}

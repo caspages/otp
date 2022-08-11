@@ -1,0 +1,24 @@
+uuid: b2712371-e041-4e3e-bf14-28766e479f8a
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.mt_dropdowns_block
+    - field.field.block_content.mt_dropdowns_block.field_mt_dropdown
+  module:
+    - entity_reference_revisions
+id: block_content.mt_dropdowns_block.default
+targetEntityType: block_content
+bundle: mt_dropdowns_block
+mode: default
+content:
+  field_mt_dropdown:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

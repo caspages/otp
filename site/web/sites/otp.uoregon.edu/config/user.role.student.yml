@@ -1,0 +1,49 @@
+uuid: 84436c18-8782-469c-ac40-8a6f782a7b47
+langcode: en
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+    - filter.format.restricted_html
+    - node.type.article
+    - node.type.theater
+  module:
+    - contextual
+    - entity_browser
+    - file
+    - filter
+    - node
+    - quickedit
+    - search
+    - system
+    - toolbar
+id: student
+label: Student
+weight: 4
+is_admin: null
+permissions:
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access files overview'
+  - 'access in-place editing'
+  - 'access related_cities_and_theaters entity browser pages'
+  - 'access toolbar'
+  - 'access user profiles'
+  - 'create article content'
+  - 'create theater content'
+  - 'delete any theater content'
+  - 'delete own article content'
+  - 'delete own theater content'
+  - 'delete theater revisions'
+  - 'edit any theater content'
+  - 'edit own article content'
+  - 'edit own theater content'
+  - 'revert article revisions'
+  - 'revert theater revisions'
+  - 'use advanced search'
+  - 'use text format full_html'
+  - 'use text format restricted_html'
+  - 'view article revisions'
+  - 'view own unpublished content'
+  - 'view the administration theme'
+  - 'view theater revisions'

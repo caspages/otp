@@ -1,0 +1,21 @@
+uuid: 7e26391a-cc6c-458f-a6cc-a948ce733e02
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_works_cited
+    - node.type.theater
+  module:
+    - text
+id: node.theater.field_works_cited
+field_name: field_works_cited
+entity_type: node
+bundle: theater
+label: 'Works cited'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

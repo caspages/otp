@@ -1,0 +1,25 @@
+uuid: 90320dda-5477-4acc-a0b0-3d220e86f497
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:mt_dropdowns_block:75a67a88-eb75-49ac-b483-0b41b5305c33'
+  module:
+    - block_content
+  theme:
+    - corporate_lite
+id: headerdropdowns
+theme: corporate_lite
+region: header_third
+weight: 0
+provider: null
+plugin: 'block_content:75a67a88-eb75-49ac-b483-0b41b5305c33'
+settings:
+  id: 'block_content:75a67a88-eb75-49ac-b483-0b41b5305c33'
+  label: 'Header Dropdowns'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

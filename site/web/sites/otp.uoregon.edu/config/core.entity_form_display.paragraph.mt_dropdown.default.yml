@@ -1,0 +1,34 @@
+uuid: 072d14ad-29ed-4ed5-bd1f-5425e75fd41b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.mt_dropdown.field_mt_dropdown_block
+    - field.field.paragraph.mt_dropdown.field_mt_dropdown_trigger_icon
+    - paragraphs.paragraphs_type.mt_dropdown
+id: paragraph.mt_dropdown.default
+targetEntityType: paragraph
+bundle: mt_dropdown
+mode: default
+content:
+  field_mt_dropdown_block:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_mt_dropdown_trigger_icon:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

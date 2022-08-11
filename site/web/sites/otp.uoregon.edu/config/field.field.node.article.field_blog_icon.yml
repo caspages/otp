@@ -1,0 +1,21 @@
+uuid: 93698bc7-0bd8-46b7-be41-404baafdc071
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_blog_icon
+    - node.type.article
+  module:
+    - options
+id: node.article.field_blog_icon
+field_name: field_blog_icon
+entity_type: node
+bundle: article
+label: 'Blog icon'
+description: 'Please select an available icon. It will be displayed under the ''latest research'' section on related cities and theaters.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

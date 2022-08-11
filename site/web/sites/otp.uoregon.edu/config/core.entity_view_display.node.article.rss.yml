@@ -1,0 +1,34 @@
+uuid: 6ca342b9-6e99-4ca8-b4a3-d3a801d3ccdd
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.rss
+    - field.field.node.article.body
+    - field.field.node.article.comment
+    - field.field.node.article.field_blog_icon
+    - field.field.node.article.field_categories
+    - field.field.node.article.field_cities_and_theaters
+    - field.field.node.article.field_image
+    - node.type.article
+  module:
+    - user
+_core:
+  default_config_hash: 2rIr6K5Q0UQ9khg0zE_CK-PtJH76UL-BDDZcZnZzwCc
+id: node.article.rss
+targetEntityType: node
+bundle: article
+mode: rss
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  body: true
+  comment: true
+  field_blog_icon: true
+  field_categories: true
+  field_cities_and_theaters: true
+  field_image: true

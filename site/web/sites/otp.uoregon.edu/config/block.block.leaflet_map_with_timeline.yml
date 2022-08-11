@@ -1,0 +1,26 @@
+uuid: 69a67e55-18e3-4d74-92b8-1f701050e499
+langcode: en
+status: true
+dependencies:
+  module:
+    - leaflet_map_timeline
+    - system
+  theme:
+    - corporate_lite
+id: leaflet_map_with_timeline
+theme: corporate_lite
+region: system_messages
+weight: -8
+provider: null
+plugin: leaflet_map_timeline_block
+settings:
+  id: leaflet_map_timeline_block
+  label: 'Leaflet Map with Timeline'
+  label_display: '0'
+  provider: leaflet_map_timeline
+  leaflet_map_timeline_block_settings: null
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

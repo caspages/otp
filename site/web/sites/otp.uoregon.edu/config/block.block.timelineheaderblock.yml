@@ -1,0 +1,30 @@
+uuid: c763d6fe-a74a-4c3b-b4a0-49306a26e3e4
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:1b634aad-8fea-4c65-8572-4854fd9c6e60'
+  module:
+    - block_content
+    - system
+  theme:
+    - corporate_lite
+id: timelineheaderblock
+theme: corporate_lite
+region: system_messages
+weight: -9
+provider: null
+plugin: 'block_content:1b634aad-8fea-4c65-8572-4854fd9c6e60'
+settings:
+  id: 'block_content:1b634aad-8fea-4c65-8572-4854fd9c6e60'
+  label: 'A timeline of historic Oregon theaters'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

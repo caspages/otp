@@ -1,0 +1,23 @@
+uuid: f5d8cd86-08aa-4168-af5e-bb864823688a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_mt_dropdown_block
+    - paragraphs.paragraphs_type.mt_dropdown
+id: paragraph.mt_dropdown.field_mt_dropdown_block
+field_name: field_mt_dropdown_block
+entity_type: paragraph
+bundle: mt_dropdown
+label: 'Dropdown Block'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:block'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: entity_reference

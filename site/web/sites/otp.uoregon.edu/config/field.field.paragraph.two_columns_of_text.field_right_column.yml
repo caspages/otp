@@ -1,0 +1,21 @@
+uuid: b4fe7495-85aa-4d7e-b59b-30eabb2ac484
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_right_column
+    - paragraphs.paragraphs_type.two_columns_of_text
+  module:
+    - text
+id: paragraph.two_columns_of_text.field_right_column
+field_name: field_right_column
+entity_type: paragraph
+bundle: two_columns_of_text
+label: 'Right column'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

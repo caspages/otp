@@ -1,0 +1,26 @@
+uuid: 8df5d534-0621-4cab-bef2-54a69c2c619d
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - system
+id: article_modifications
+label: 'Article modifications'
+code: ".node--type-article .node__side {\r\n  display: none;\r\n}"
+media: all
+preprocess: true
+conditions:
+  request_path:
+    id: request_path
+    negate: false
+    pages: "/node\r\n/taxonomy/term/*"
+  node_type:
+    id: node_type
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      article: article
+contexts: {  }
+conditions_require_all: false

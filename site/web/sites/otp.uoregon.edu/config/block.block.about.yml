@@ -1,0 +1,25 @@
+uuid: 7888f1ca-7093-40a0-b95b-25333390c171
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:page_reference_block:7833ac69-6c23-4c7e-ad00-4dc5ba1d9159'
+  module:
+    - block_content
+  theme:
+    - corporate_lite
+id: about
+theme: corporate_lite
+region: footer_first
+weight: 0
+provider: null
+plugin: 'block_content:7833ac69-6c23-4c7e-ad00-4dc5ba1d9159'
+settings:
+  id: 'block_content:7833ac69-6c23-4c7e-ad00-4dc5ba1d9159'
+  label: About
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

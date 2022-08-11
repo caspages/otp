@@ -1,0 +1,25 @@
+uuid: e3b457c5-5733-454e-9666-356099606f3e
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: site_slogan_larger_font
+label: 'Site and slogan font'
+code: |-
+  .site-name a {
+      font-size: 30px;
+  }
+  .site-slogan {
+    font-size: 16px;
+  }
+media: all
+preprocess: true
+conditions:
+  current_theme:
+    id: current_theme
+    theme:
+      corporate_lite: corporate_lite
+    negate: false
+contexts: {  }
+conditions_require_all: true

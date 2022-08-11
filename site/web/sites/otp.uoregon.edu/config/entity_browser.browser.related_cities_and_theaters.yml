@@ -1,0 +1,36 @@
+uuid: d26a5202-6c7a-41d5-b974-a93053c80a7e
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.select_related_cities_theaters
+  module:
+    - views
+name: related_cities_and_theaters
+label: 'Related cities and theaters'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select related cities & theaters'
+  auto_open: false
+selection_display: multi_step_display
+selection_display_configuration:
+  entity_type: node
+  display: label
+  display_settings: {  }
+  select_text: 'Use selected'
+  selection_hidden: false
+widget_selector: single
+widget_selector_configuration: {  }
+widgets:
+  a13efe35-ad9d-46d7-94e1-26f340141449:
+    id: view
+    uuid: a13efe35-ad9d-46d7-94e1-26f340141449
+    label: 'Select related cities & theaters'
+    weight: 1
+    settings:
+      submit_text: 'Select related cities & theaters'
+      auto_select: false
+      view: select_related_cities_theaters
+      view_display: entity_browser_1

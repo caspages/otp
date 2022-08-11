@@ -1,0 +1,25 @@
+uuid: c52be510-341b-49a2-8b8c-d4ec18ad8aa0
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:5d027a50-0ea3-4a52-b942-bdb7490f69ee'
+  module:
+    - block_content
+  theme:
+    - corporate_lite
+id: contactus
+theme: corporate_lite
+region: footer_third
+weight: 0
+provider: null
+plugin: 'block_content:5d027a50-0ea3-4a52-b942-bdb7490f69ee'
+settings:
+  id: 'block_content:5d027a50-0ea3-4a52-b942-bdb7490f69ee'
+  label: 'Contact Us'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

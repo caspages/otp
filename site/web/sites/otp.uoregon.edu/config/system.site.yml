@@ -1,0 +1,14 @@
+_core:
+  default_config_hash: yTxtFqBHnEWxQswuWvkjE8mKw2t8oKuCL1q8KnfHuGE
+langcode: en
+uuid: dfbc35f8-d2cc-4a38-813a-9cc6928178d5
+name: 'Oregon Theater Project'
+mail: example@test.com
+slogan: 'Exhibition & Moviegoing In The Silent Era'
+page:
+  403: ''
+  404: ''
+  front: /node/1
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en

@@ -1,0 +1,18 @@
+uuid: be31872a-6065-44a7-ad63-527ee8848430
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.theater
+id: node.theater.title
+field_name: title
+entity_type: node
+bundle: theater
+label: 'Theater name'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

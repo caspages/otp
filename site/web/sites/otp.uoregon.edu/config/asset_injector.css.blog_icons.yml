@@ -1,0 +1,126 @@
+uuid: e695c39d-d6e1-4bcb-97ea-ff92dee7c372
+langcode: en
+status: true
+dependencies: {  }
+id: blog_icons
+label: 'Blog icons'
+code: |-
+  .cp-clapper {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Clapper-Board-01.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .view-promoted-items .views-row:hover .cp-clapper {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Clapper-Board-01-white.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  input[value="cp-clapper"] + label {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Clapper-Board-01.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+    line-height: 45px;
+    padding-left: 45px;
+    display: inline-block;
+  }
+  input[value="fa-film"] + label {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/fa-film-screenshot.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+    line-height: 45px;
+    padding-left: 45px;
+    display: inline-block;
+  }
+  .cp-film-real {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Film-Reel.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .view-promoted-items .views-row:hover .cp-film-real {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Film-Reel-white.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  input[value="cp-film-real"] + label {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Film-Reel.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+    line-height: 45px;
+    padding-left: 45px;
+    display: inline-block;
+  }
+  .cp-record {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Record.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .view-promoted-items .views-row:hover .cp-record {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Record-white.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  input[value="cp-record"] + label {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Record.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+    line-height: 45px;
+    padding-left: 45px;
+    display: inline-block;
+  }
+  .cp-ticket {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Ticket.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .view-promoted-items .views-row:hover .cp-ticket {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Ticket-white.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  input[value="cp-ticket"] + label {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Ticket.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+    line-height: 45px;
+    padding-left: 45px;
+    display: inline-block;
+  }
+  input[value="fa-ticket"] + label {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/fa-ticket-screenshot.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+    line-height: 45px;
+    padding-left: 45px;
+    display: inline-block;
+  }
+  input[value="fa-video-camera"] + label {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/fa-video-camera-screenshot.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+    line-height: 45px;
+    padding-left: 45px;
+    display: inline-block;
+  }
+  .cp-video-record {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Video-Record-01.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .view-promoted-items .views-row:hover .cp-video-record {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Video-Record-01-white.png");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  input[value="cp-video-record"] + label {
+    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/blog_icons/Video-Record-01.png");
+    background-repeat: no-repeat;
+    background-position: 0;
+    line-height: 45px;
+    padding-left: 45px;
+    display: inline-block;
+  }
+media: all
+preprocess: true
+conditions: {  }
+contexts: {  }
+conditions_require_all: true

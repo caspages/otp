@@ -1,0 +1,34 @@
+uuid: 046c231e-cd61-4c3b-9466-25dc2f4940af
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_paragraphs
+    - node.type.theater
+    - paragraphs.paragraphs_type.two_columns_of_text
+  module:
+    - entity_reference_revisions
+id: node.theater.field_paragraphs
+field_name: field_paragraphs
+entity_type: node
+bundle: theater
+label: Body
+description: '<strong>The main theater content belongs here.</strong><br>Additional sections can be added using the button, below.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      two_columns_of_text: two_columns_of_text
+    negate: 0
+    target_bundles_drag_drop:
+      mt_dropdown:
+        weight: 3
+        enabled: false
+      two_columns_of_text:
+        weight: 4
+        enabled: true
+field_type: entity_reference_revisions

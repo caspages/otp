@@ -1,0 +1,20 @@
+leaflet-timeline:
+  version: 1.4.2
+  header: true
+  js:
+    https://cdn.jsdelivr.net/npm/leaflet.timeline@1.4.2/dist/leaflet.timeline.min.js: {type: external, minified: true}
+    https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js: {type: external, minified: true}
+  dependencies:
+    - core/jquery
+    - leaflet/leaflet
+map-timeline:
+  version: 1.0.x
+  js:
+    https://unpkg.com/leaflet.markercluster.layersupport@2.0.1/dist/leaflet.markercluster.layersupport.js: {type: external, minified: true}
+    map.timeline.drupal.js: {}
+  css:
+    component:
+      css/style.css: {}
+  dependencies:
+    - leaflet_map_timeline/leaflet-timeline
+    - leaflet_markercluster/leaflet-markercluster

@@ -1,0 +1,28 @@
+uuid: e64a2e3c-0741-480f-95f2-92fdbaa62310
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.page_reference_block
+    - field.storage.block_content.field_page_reference
+    - node.type.page
+id: block_content.page_reference_block.field_page_reference
+field_name: field_page_reference
+entity_type: block_content
+bundle: page_reference_block
+label: 'Page Reference'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,8 @@
+uuid: 63ece5a9-51fb-44bd-a560-87e58f555b60
+langcode: en
+status: true
+dependencies: {  }
+id: mt_dropdowns_block
+label: 'Dropdowns Block'
+revision: 0
+description: 'Use this custom block type to display other blocks as dropdown elements, using the corresponding Bootstrap feature.'

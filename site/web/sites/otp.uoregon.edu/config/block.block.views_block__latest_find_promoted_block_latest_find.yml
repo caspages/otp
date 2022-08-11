@@ -1,0 +1,29 @@
+uuid: fe86594a-4fc1-4d39-a04e-f7149ae5ac18
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.latest_find_promoted
+  module:
+    - system
+    - views
+  theme:
+    - corporate_lite
+id: views_block__latest_find_promoted_block_latest_find
+theme: corporate_lite
+region: content
+weight: -5
+provider: null
+plugin: 'views_block:latest_find_promoted-block_latest_find'
+settings:
+  id: 'views_block:latest_find_promoted-block_latest_find'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '<front>'

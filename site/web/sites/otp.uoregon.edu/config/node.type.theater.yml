@@ -1,0 +1,17 @@
+uuid: 7c9c0519-6c36-48a4-bae0-4beb8edfe622
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Theater
+type: theater
+description: 'Use <em>theater</em> for creating theater content.'
+help: ''
+new_revision: true
+preview_mode: 0
+display_submitted: false

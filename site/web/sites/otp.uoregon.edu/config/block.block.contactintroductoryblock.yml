@@ -1,0 +1,30 @@
+uuid: d4032b49-ed4a-43c4-98a5-425a8faea1ef
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:b1b5bbae-71f5-4f88-9ced-dedac7bc059a'
+  module:
+    - block_content
+    - system
+  theme:
+    - corporate_lite
+id: contactintroductoryblock
+theme: corporate_lite
+region: content
+weight: -8
+provider: null
+plugin: 'block_content:b1b5bbae-71f5-4f88-9ced-dedac7bc059a'
+settings:
+  id: 'block_content:b1b5bbae-71f5-4f88-9ced-dedac7bc059a'
+  label: 'Contact Introductory Block'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /contact
