@@ -1,4 +1,4 @@
-FROM drupal
+FROM drupal:9.5.3-php8.1-apache
 
 # Install git, unzip
 RUN apt-get update && apt-get install -y git unzip vim
