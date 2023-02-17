@@ -1,7 +1,7 @@
 # Oregon Theater Project Prototype Site
 This repository includes all the files needed to replicate the Oregon Theater Project website on your server or local Docker.
 
-The site is built in Drupal 9 with PHP 8.0 and above. Please refer to this link for more details about the Drupal system requirements: [https://www.drupal.org/docs/system-requirements](https://www.drupal.org/docs/system-requirements)
+The site is built in Drupal 9.5.3 with PHP 8.1 and above. Please refer to this link for more details about the Drupal system requirements: [https://www.drupal.org/docs/system-requirements](https://www.drupal.org/docs/system-requirements)
 
 The live website can be viewed here: [https://oregontheaterproject.uoregon.edu](https://oregontheaterproject.uoregon.edu)
 

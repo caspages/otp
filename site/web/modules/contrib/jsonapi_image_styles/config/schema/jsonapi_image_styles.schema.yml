@@ -1,0 +1,11 @@
+jsonapi_image_styles.settings:
+  type: config_object
+  label: 'JSON:API Image Styles settings'
+  mapping:
+    image_styles:
+      type: sequence
+      label: 'Image styles'
+      description: 'Image styles to include in JSON:API responses.'
+      sequence:
+        type: string
+        label: 'Image style'

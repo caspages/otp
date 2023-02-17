@@ -1,0 +1,12 @@
+name: Leaflet
+description: Integration with the Leaflet map scripting library.
+core_version_requirement: ^8.8 || ^9 || ^10
+type: module
+package: Geofield
+dependencies:
+  - geofield:geofield
+
+# Information added by Drupal.org packaging script on 2022-11-22
+version: '2.2.12'
+project: 'leaflet'
+datestamp: 1669109970

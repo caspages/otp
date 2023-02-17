@@ -1,13 +1,13 @@
 name: JSON:API Page Limit
 type: module
 description: Change the maximum number of items in a response for a given route.
-package: Custom
+package: Web services
 core: 8.x
 core_version_requirement: ^8 || ^9
 dependencies:
   - drupal:jsonapi
 
-# Information added by Drupal.org packaging script on 2020-01-03
-version: '8.x-1.0-beta1'
+# Information added by Drupal.org packaging script on 2023-01-05
+version: '8.x-1.0-beta2'
 project: 'jsonapi_page_limit'
-datestamp: 1578087187
+datestamp: 1672925391

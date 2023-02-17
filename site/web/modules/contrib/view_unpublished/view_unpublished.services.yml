@@ -1,0 +1,7 @@
+services:
+  logger.channel.view_unpublished:
+    parent: logger.channel_base
+    arguments: ['view_unpublished']
+  view_unpublished.install_helper:
+    class: Drupal\view_unpublished\ViewUnpublishedInstallHelper
+    arguments: ['@entity_type.manager', '@config.factory', '@config.storage']

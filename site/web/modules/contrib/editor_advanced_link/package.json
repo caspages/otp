@@ -1,0 +1,19 @@
+{
+  "name": "drupal-editor-advanced-link",
+  "version": "2.0.0",
+  "description": "Add title, target etc. attributes to Text Editor's link dialog if the text format allows them.",
+  "author": "",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "watch": "webpack --mode development --watch",
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "@ckeditor/ckeditor5-dev-utils": "^30.0.0",
+    "ckeditor5": "~35.1.0",
+    "raw-loader": "^4.0.2",
+    "terser-webpack-plugin": "^5.3.3",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.4.0"
+  }
+}

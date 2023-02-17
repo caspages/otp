@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Editoria11y module file.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Attaches Editoria11y library and config based on context.
+ */
+function editoria11y_page_attachments(array &$attachments) {
+
+  // Make sure user has permission and we are not on an admin page.
+  if (Drupal::currentUser()->hasPermission('view editoria11y checker') && !Drupal::service('router.admin_context')->isAdminRoute()) {
+
+    // Confirm this is a "view" (not edit) route, and set last-changed time.
+    $show = FALSE;
+    $route_match = \Drupal::routeMatch();
+    $route_name = $route_match->getRouteName();
+    if ($route_name == 'entity.node.canonical') {
+      $page = $route_match->getParameter('node');
+      $changed = $page->changed->value;
+      $show = TRUE;
+    }
+    elseif (strrpos ( $route_name, 'canonical', -1 ) || strrpos ( $route_name, 'revision', -1 ) || strrpos ( $route_name, 'view') == 0) {
+      // Not bothering to get last changed for non-node entities and revisions.
+      $changed = 0;
+      $show = TRUE;
+    }
+    elseif (strrpos ( $route_name, 'preview', -1 )) {
+      // Preview pages should always present as "new."
+      $changed = \Drupal::time()->getRequestTime();
+      $show = TRUE;
+    }
+
+
+    if ($show) {
+      $config = \Drupal::config('editoria11y.settings');
+      $attachments['#attached']['library'][] = 'editoria11y/editoria11y';
+      $attachments['#attached']['drupalSettings']['editoria11y']['assertiveness'] = $config->get('assertiveness');
+      $attachments['#attached']['drupalSettings']['editoria11y']['changed'] = $changed;
+      $attachments['#attached']['drupalSettings']['editoria11y']['allow_overflow'] = $config->get('allow_overflow');
+      $attachments['#attached']['drupalSettings']['editoria11y']['no_load'] = $config->get('no_load');
+      $attachments['#attached']['drupalSettings']['editoria11y']['content_root'] = $config->get('content_root');
+      $attachments['#attached']['drupalSettings']['editoria11y']['ignore_containers'] = $config->get('ignore_containers');
+      $attachments['#attached']['drupalSettings']['editoria11y']['embedded_content_warning'] = $config->get('embedded_content_warning');
+      $attachments['#attached']['drupalSettings']['editoria11y']['hidden_handlers'] = $config->get('hidden_handlers');
+      $attachments['#attached']['drupalSettings']['editoria11y']['download_links'] = $config->get('download_links');
+      $attachments['#attached']['drupalSettings']['editoria11y']['ignore_link_strings'] = $config->get('ignore_link_strings');
+      $attachments['#cache']['tags'][] = 'config:editoria11y.settings';
+      $attachments['#cache']['contexts'][] = 'user.permissions';
+    }
+  }
+}

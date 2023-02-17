@@ -1,0 +1,24 @@
+eu_cookie_compliance:
+  path: '/admin/config/system/eu-cookie-compliance'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'EU Cookie Compliance'
+  requirements:
+    _custom_access: '\Drupal\eu_cookie_compliance\Controller\AdminController::access'
+eu_cookie_compliance.settings:
+  path: '/admin/config/system/eu-cookie-compliance/settings'
+  defaults:
+    _form: '\Drupal\eu_cookie_compliance\Form\EuCookieComplianceConfigForm'
+    _title: 'Settings'
+  requirements:
+    _permission: 'administer eu cookie compliance popup'
+eu_cookie_compliance.store_consent:
+  path: '/eu-cookie-compliance/store_consent/{target}'
+  defaults:
+    _controller: \Drupal\eu_cookie_compliance\Controller\StoreConsent::store
+    _title: 'EU Cookie Compliance store consent'
+  requirements:
+    # Access true
+    _access: 'TRUE'
+route_callbacks:
+  - '\Drupal\eu_cookie_compliance\Routing\CheckIfEuCountryJs::routes'

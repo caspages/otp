@@ -1,0 +1,13 @@
+name: '@fontyourface - Adobe Edge Fonts'
+type: module
+description: '@font-your-face provider with Adobe Edge fonts.'
+core: 8.x
+core_version_requirement: ^8 || ^9
+package: '@font-your-face'
+dependencies:
+  - fontyourface:fontyourface
+
+# Information added by Drupal.org packaging script on 2021-03-05
+version: '8.x-3.6'
+project: 'fontyourface'
+datestamp: 1614963173

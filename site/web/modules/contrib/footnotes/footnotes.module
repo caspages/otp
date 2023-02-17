@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * @file
+ * This file contains the hooks for Footnotes module.
+ *
+ * The Footnotes module is a filter that can be used to insert
+ * automatically numbered footnotes into Drupal texts.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_help().
+ */
+function footnotes_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.footnotes':
+      return t("Insert automatically numbered footnotes using &lt;fn&gt; or [fn] tags. Enable the footnotes text filter <a href=':href'>here</a>", [
+        ':href' => Url::fromRoute('filter.admin_overview')->toString(),
+      ]);
+  }
+}
+
+/**
+ * Implements hook_theme().
+ *
+ * Thanks to emfabric for this implementation. http://drupal.org/node/221156
+ */
+function footnotes_theme() {
+  return [
+    'footnote_link' => [
+      'variables' => [
+        'fn'    => NULL,
+      ],
+    ],
+    'footnote_list' => [
+      'variables' => [
+        'footnotes' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Helper for other filters, check if Footnotes is present in your filter chain.
+ *
+ * Note: Due to changes in Filter API, the arguments to this function have
+ * changed in Drupal 7.
+ *
+ * Other filters may leverage the Footnotes functionality in a simple way:
+ * by outputting markup with <fn>...</fn> tags within.
+ *
+ * This creates a dependency, the Footnotes filter must be present later in
+ * "Input format". By calling this helper function the other filters that
+ * depend on Footnotes may check whether Footnotes is present later in the chain
+ * of filters in the current Input format.
+ *
+ * If this function returns true, the caller may depend on Footnotes. Function
+ * returns false if caller may not depend on Footnotes.
+ *
+ * You should also put "dependencies = footnotes" in your module.info file.
+ *
+ * Example usage:
+ * <code>
+ * _filter_example_process( $text, $filter, $format ) {
+ *   ...
+ *   if(footnotes_is_footnotes_later($format, $filter)) {
+ *     //output markup which may include [fn] tags
+ *   }
+ *   else {
+ *     // must make do without footnotes features
+ *     // can also emit warning/error that user should install and configure
+ *     // footnotes module
+ *   }
+ *   ...
+ * }
+ * </code>
+ *
+ * @param object $format
+ *   The text format object caller is part of.
+ * @param object $caller_filter
+ *   The filter object representing the caller (in this text format).
+ *
+ * @return True
+ *   If Footnotes is present after $caller in $format.
+ */
+function footnotes_is_footnotes_later($format, $caller_filter) {
+  return $format['filter_footnotes']['weight'] > $caller_filter['weight'];
+}

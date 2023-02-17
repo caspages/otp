@@ -1,0 +1,23 @@
+{
+    "name": "drupal/image_resize_filter",
+    "description": "Resizes images based on width and height attributes and optionally link to the original image.",
+    "type": "drupal-module",
+    "homepage": "https://www.drupal.org/project/image_resize_filter",
+    "authors": [
+        {
+            "name": "David Valdez (gnuget)",
+            "homepage": "https://www.drupal.org/u/gnuget",
+            "role": "Maintainer"
+        },
+        {
+            "name": "Ra Mänd (ram4nd)",
+            "homepage": "https://www.drupal.org/u/ram4nd",
+            "role": "Co-maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/image_resize_filter",
+        "source": "https://git.drupalcode.org/project/image_resize_filter"
+    },
+    "license": "GPL-2.0-or-later"
+}

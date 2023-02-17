@@ -1,0 +1,11 @@
+services:
+  plugin.manager.eu_cookie_compliance.consent_storage:
+    class: Drupal\eu_cookie_compliance\Plugin\ConsentStorageManager
+    parent: default_plugin_manager
+  eu_cookie_compliance.config_subscriber:
+    class: Drupal\eu_cookie_compliance\EventSubscriber\EuCookieComplianceConfigEventsSubscriber
+    tags:
+      - { name: event_subscriber }
+  eu_cookie_compliance.clear_cache:
+    class: Drupal\eu_cookie_compliance\Plugin\EuCcClearCache
+    arguments: ['@module_handler', '@language_manager', '@entity_type.manager', '@extension.list.theme', '@cache.render']

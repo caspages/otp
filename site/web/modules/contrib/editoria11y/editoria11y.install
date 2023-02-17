@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * Editorially install file.
+ */
+
+use Drupal\user\Entity\Role;
+
+/**
+ * Implements hook_install().
+ */
+function editoria11y_install() {
+  // Assign default access to roles likely to have content editing access.
+  /** @var \Drupal\user\RoleInterface $role */
+  foreach (Role::loadMultiple() as $role) {
+    if ($role->hasPermission('view own unpublished content') ||
+      $role->hasPermission('access content overview') || $role->hasPermission('access in place editing')) {
+      $role->grantPermission('view editoria11y checker');
+      $role->save();
+    }
+  }
+}

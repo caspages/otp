@@ -1,0 +1,1006 @@
+<?php
+
+/**
+ * @file
+ * The main file for the EU Cookie Compliance module.
+ *
+ * This module intends to deal with the EU Directive on Privacy and Electronic
+ * Communications that comes into effect in the UK on 26th May 2012.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Url;
+use Drupal\Component\Utility\UrlHelper;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Asset\AttachedAssetsInterface;
+use Drupal\Component\Utility\Xss;
+use Drupal\eu_cookie_compliance\PersonalInformationFormInterface;
+
+/**
+ * Implements hook_help().
+ */
+function eu_cookie_compliance_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.eu_cookie_compliance':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module intends to deal with the EU Directive on Privacy and Electronic Communications that comes into effect on 26th May 2012. From that date, if you are not compliant or visibly working towards compliance, you run the risk of enforcement action, which can include a fine of up to half a million pounds for a serious breach.') . '</p>';
+      $output .= '<h3>' . t('How it works') . '</h3>';
+      $output .= '<p>' . t('The module displays a banner at the bottom or the top of website to make users aware of the fact that cookies are being set. The user may then give his/her consent or move to a page that provides more details. Consent is given by user pressing the agree buttons or by continuing browsing the website. Once consent is given another banner appears with a "Thank you" message.') . '</p>';
+      $output .= '<p>' . t('The module provides a settings page where the banner can be customized. There are also template files for the banners that can be overridden by your theme.') . '</p>';
+      $output .= '<h3>' . t('Installation') . '</h3>';
+      $output .= '<ol><li>' . t('Unzip the files to the "sites/all/modules" OR "modules" directory and enable the module.') . '</li>';
+      $output .= '<li>' . t('If desired, give the administer EU Cookie Compliance banner permissions that allow users of certain roles access the administration page. You can do so on the admin/user/permissions page.') . '</li>';
+      // @codingStandardsIgnoreLine
+      $output .= "<label>-&nbsp;</label>" . t("there is also a 'display eu cookie compliance banner' permission that helps you show the banner to the roles you desire.");
+      $output .= '<li>' . t('You may want to create a page that would explain how your site uses cookies. Alternatively, if you have a privacy policy, you can link the banner to that page (see next step).') . '</li>';
+      $output .= '<li>' . t('Go to the admin/config/system/eu-cookie-compliance page to configure and enable the banner.') . '</li>';
+      $output .= '<li>' . t('If you want to customize the banner background and text color, either type in the hex values or simply install http://drupal.org/project/coloris.') . '</li>';
+      $output .= '<li>' . t('If you want to theme your banner override the themes in the template file.') . '</li>';
+      $output .= '<li>' . t('If you want to show the message in EU countries only, install the Smart IP module: http://drupal.org/project/smart_ip and enable the option on the admin page.') . '</li></ol>';
+      $output .= '<p><b>' . t('NOTICE: The module does not audit your cookies nor does it prevent cookies from being set.') . '</b></p>';
+      $output .= '<h3>' . t('For developers') . '</h3>';
+      $output .= '<p>' . t('If you want to conditionally set cookies in your module, there is a javascript function provided that returns TRUE if the current user has given his consent:') . '</p>';
+      $output .= '<p><code>Drupal.eu_cookie_compliance.hasAgreed()</code></p>';
+
+      return ['#markup' => $output];
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function eu_cookie_compliance_page_attachments(&$variables) {
+  // Make the module work better with AMP.
+  $activeTheme = \Drupal::service('theme.manager')->getActiveTheme();
+  $themeName = $activeTheme->getName();
+  $parents_theme = $activeTheme->getBaseThemeExtensions();
+
+  if ((!empty($parents_theme) && array_key_exists('amptheme', $parents_theme)) || $themeName === "amptheme") {
+    return;
+  }
+
+  $config = \Drupal::config('eu_cookie_compliance.settings');
+
+  // Check Add/Remove domains.
+  $domain_allow = TRUE;
+  $domain_option = $config->get('domains_option');
+
+  if (!empty($config->get('domains_list'))) {
+    global $base_url;
+
+    $domains_list = str_replace(["\r\n", "\r"], "\n", $config->get('domains_list'));
+    $domains_list = explode("\n", $domains_list);
+    $domains_list = preg_replace('{/$}', '', $domains_list);
+    $domain_match = in_array($base_url, $domains_list);
+
+    if ($domain_option && $domain_match) {
+      $domain_allow = FALSE;
+    }
+
+    if (!$domain_option && !$domain_match) {
+      $domain_allow = FALSE;
+    }
+  }
+
+  if (!$domain_allow) {
+    // Stop processing if this domain is excluded.
+    return;
+  }
+
+  // Check exclude paths.
+  $path_match = FALSE;
+
+  if (!empty($config->get('exclude_paths'))) {
+    // Check both the URL path and the URL alias against the list to exclude.
+    $path = \Drupal::service('path.current')->getPath();
+    $url_alias_path = \Drupal::service('path_alias.manager')->getAliasByPath($path);
+    $path_match = \Drupal::service('path.matcher')->matchPath($path, $config->get('exclude_paths'));
+    $path_match_url_alias = \Drupal::service('path.matcher')->matchPath($url_alias_path, $config->get('exclude_paths'));
+    $path_match = $path_match || $path_match_url_alias;
+    $exclude_paths = $config->get('exclude_paths');
+    \Drupal::moduleHandler()->alter('eu_cookie_compliance_path_match', $path_match, $path, $exclude_paths);
+  }
+
+  // Check hide cookie compliance on admin theme.
+  $admin_theme_match = FALSE;
+
+  if ($config->get('exclude_admin_theme')) {
+    // Determines whether the active route is an admin one.
+    $is_route_admin = \Drupal::service('router.admin_context')->isAdminRoute();
+    if ($is_route_admin) {
+      $admin_theme_match = TRUE;
+    }
+  }
+
+  $geoip_match = ['in_eu' => TRUE];
+  if (!empty($config->get('eu_only')) && $config->get('eu_only')) {
+    $geoip_match = eu_cookie_compliance_user_in_eu();
+  }
+
+  // Allow other modules to alter the geo IP matching logic.
+  \Drupal::moduleHandler()->alter('eu_cookie_compliance_geoip_match', $geoip_match);
+
+  // Get the site-wide admin role.
+  $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+  $admin_role = [];
+
+  foreach ($roles as $role) {
+    if ($role->isAdmin()) {
+      $admin_role = $role->id();
+      break;
+    }
+  }
+
+  $uid1_match = TRUE;
+  if ((\Drupal::currentUser()->id() == 1 || in_array($admin_role, \Drupal::currentUser()->getRoles())) && !empty($config->get('exclude_uid_1')) && $config->get('exclude_uid_1')) {
+    $uid1_match = FALSE;
+  }
+
+  // Allow other modules to alter if the banner needs to be shown or not.
+  $modules_allow_popup = TRUE;
+  \Drupal::moduleHandler()->alter('eu_cookie_compliance_show_popup', $modules_allow_popup);
+  $open_by_default = FALSE;
+
+  if ($config->get('popup_enabled') && \Drupal::currentUser()->hasPermission('display eu cookie compliance popup') && $geoip_match['in_eu'] && $domain_allow && !$path_match && !$admin_theme_match && $uid1_match && $modules_allow_popup) {
+    $open_by_default = TRUE;
+  }
+
+  $hide_the_banner = FALSE;
+  if ($path_match || $admin_theme_match || !$uid1_match) {
+    $hide_the_banner = TRUE;
+  }
+
+  $language = \Drupal::languageManager()->getCurrentLanguage();
+
+  // Start building out a cache tag.
+  $cid = 'eu_cookie_compliance_data:' . $language->getId();
+
+  // Check if the domain should be added to the cache tag.
+  $moduleHandler = \Drupal::service('module_handler');
+  if ($moduleHandler->moduleExists('domain') && count(\Drupal::entityTypeManager()->getStorage('domain')->getQuery()->range(0, 1)->execute()) > 0) {
+    $cid .= ':' . \Drupal::service('domain.negotiator')->getActiveId();
+  }
+  // Add the current theme to the cache tag.
+  $cid .= ':' . \Drupal::service('theme.manager')->getActiveTheme()->getName();
+  // Allow other modules to alter the cache id.
+  \Drupal::moduleHandler()->alter('eu_cookie_compliance_cid', $cid);
+
+  if ($cache = \Drupal::cache('render')->get($cid)) {
+    $data = $cache->data;
+  }
+  else {
+    $data = eu_cookie_compliance_build_data();
+    \Drupal::cache('render')->set($cid, $data, Cache::PERMANENT, $config->getCacheTags());
+  }
+
+  $system_theme = \Drupal::config('system.theme')->get('default');
+  $theme_object = \Drupal::service('theme_handler')->listInfo()[$system_theme];
+  if (!empty($theme_object->base_theme)) {
+    $base_theme = $theme_object->base_theme;
+  }
+  else {
+    $base_theme = '';
+  }
+
+  // Determine which style library to load.
+  if ($config->get('use_bare_css')) {
+    $style_library = 'bare';
+  }
+  elseif ($config->get('use_olivero_css') && ($system_theme === 'olivero' || $base_theme === 'olivero')) {
+    $style_library = 'olivero';
+  }
+  else {
+    $style_library = 'default';
+  }
+
+  $variables['#attached']['drupalSettings']['eu_cookie_compliance'] = $data['variables'];
+  $variables['#attached']['drupalSettings']['eu_cookie_compliance']['open_by_default'] = $open_by_default;
+  $variables['#attached']['drupalSettings']['eu_cookie_compliance']['modules_allow_popup'] = $modules_allow_popup;
+  $variables['#attached']['drupalSettings']['eu_cookie_compliance']['hide_the_banner'] = $hide_the_banner;
+  $variables['#attached']['drupalSettings']['eu_cookie_compliance']['geoip_match'] = $geoip_match['in_eu'];
+  $variables['#attached']['library'][] = 'eu_cookie_compliance/eu_cookie_compliance_' . $style_library;
+
+  // Add javascript.
+  $uri = 'public://eu_cookie_compliance/eu_cookie_compliance.script.js';
+  if (!empty($config->get('disabled_javascripts'))) {
+    if (is_readable($uri)) {
+      if ((float) \Drupal::VERSION < 9.3) {
+        $url = file_url_transform_relative(file_create_url($uri));
+      }
+      else {
+        $url = \Drupal::service('file_url_generator')->generateString($uri);
+      }
+      $query_string = \Drupal::state()
+        ->get('system.css_js_query_string') ?: '0';
+      $weight = 9;
+
+      $variables['#attached']['html_head'][] = [
+        [
+          '#type' => 'html_tag',
+          '#tag' => 'script',
+          '#attributes' => [
+            'src' => $url . '?' . $query_string,
+            'defer' => TRUE,
+          ],
+          '#weight' => $weight,
+        ],
+        'eu_cookie_compliance_script_tag__eu_cookie_compliance',
+      ];
+    }
+    else {
+      \Drupal::messenger()
+        ->addError(t('Could not read the EU Cookie Compliance JavaScript file that is used to handle disabled scripts. There may be a problem with your file system or the file may be missing. Try accessing the EU Cookie Compliance settings page and re-save the form.'));
+    }
+  }
+  // Add inline javascript.
+  $disabled_javascripts = $config->get('disabled_javascripts');
+  // Initialize a variable to keep libraries to we wish to disable.
+  $libraries_to_disable = [];
+  if ($disabled_javascripts != '') {
+    $disabled_javascripts = _eu_cookie_compliance_explode_multiple_lines($disabled_javascripts);
+    $disabled_javascripts = array_filter($disabled_javascripts, 'strlen');
+
+    foreach ($disabled_javascripts as $key => $script) {
+      $parts = explode('%3A', $script);
+      if (count($parts) > 1) {
+        $script = implode(':', $parts);
+      }
+
+      if (strpos($script, '%7C') !== FALSE) {
+        // Swallow a notice in case there are no behavior or library names.
+        @list($script, $attach_name, $library_name) = explode('%7C', $script);
+
+        // Store the library name.
+        if ($library_name) {
+          $libraries_to_disable[] = $library_name;
+        }
+      }
+
+      // Store the actual script name, since we will need it later.
+      $disabled_javascripts[$key] = $script;
+
+    }
+  }
+
+  // Add inline css.
+  if (!empty($data['css'])) {
+    $variables['#attached']['html_head'][] = [
+      [
+        '#tag' => 'style',
+        '#value' => $data['css'],
+      ],
+      'eu-cookie-compliance-css',
+    ];
+  }
+  $cache_tags = isset($variables['#cache']['tags']) ? $variables['#cache']['tags'] : [];
+  $variables['#cache']['tags'] = Cache::mergeTags($cache_tags, $config->getCacheTags());
+  $category_cache_tags = \Drupal::entityTypeManager()->getStorage('cookie_category')->getEntityType()->getListCacheTags();
+  $variables['#cache']['tags'] = Cache::mergeTags($variables['#cache']['tags'], $category_cache_tags);
+
+  if (!empty($disabled_javascripts)) {
+    // Check if disabled scripts are in page html_head.
+    $disabled_javascripts = array_filter($disabled_javascripts);
+
+    foreach ($variables['#attached']['html_head'] as $index => $asset) {
+      $is_script = !empty($asset[0]['#type']) && $asset[0]['#type'] === 'html_tag' && $asset[0]['#tag'] === 'script';
+      $is_src = !empty($asset[0]['#attributes']['src']);
+      if (!$is_script || !$is_src) {
+        continue;
+      }
+      $src = $asset[0]['#attributes']['src'];
+      $src = preg_replace('/\.js\?[^"]+/', '.js', $src);
+      $src = preg_replace('/^\//', '', $src);
+      if (strpos($src, 'http') !== 0 && strpos($src, '//') !== 0) {
+        $src = '/' . $src;
+      }
+      if (in_array($src, $disabled_javascripts)) {
+        $variables['#attached']['html_head'][$index][0]['#access'] = FALSE;
+      }
+    }
+
+    // Remove libraries if they match the ones that we want to exclude.
+    foreach ($variables['#attached']['library'] as $index => $library) {
+      if (in_array($library, $libraries_to_disable)) {
+        unset($variables['#attached']['library'][$index]);
+      }
+    }
+  }
+}
+
+/**
+ * Builds the data structure for the cookie banner.
+ *
+ * @return array
+ *   The data needed for the cookie banner.
+ *
+ * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+ * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+ */
+function eu_cookie_compliance_build_data() {
+  $language = Drupal::languageManager()->getCurrentLanguage();
+  $config = Drupal::config('eu_cookie_compliance.settings');
+
+  // Adapt excluded/included reload routes to regular expressions for later use
+  // in the JS.
+  if (!empty($config->get('reload_routes_list'))) {
+
+    $routes_list = str_replace(["\r\n", "\r"], "\n", $config->get('reload_routes_list'));
+    $routes_list = explode("\n", $routes_list);
+    $routes_list = preg_replace('/\//', '', $routes_list, 1);
+    $routes_list = preg_replace('/\//', '\/', $routes_list);
+    $routes_list = str_replace('*', '.*', $routes_list);
+  }
+
+  $data['css'] = '';
+  // Color overrides.
+  if (preg_match('/^([0-9a-fA-F]{3}){1,2}$/', $config->get('popup_bg_hex')) && preg_match('/^([0-9a-fA-F]{3}){1,2}$/', $config->get('popup_text_hex'))) {
+    $data['css'] = 'div#sliding-popup, div#sliding-popup .eu-cookie-withdraw-banner, .eu-cookie-withdraw-tab {background: #' . $config->get('popup_bg_hex') . '} div#sliding-popup.eu-cookie-withdraw-wrapper { background: transparent; } #sliding-popup h1, #sliding-popup h2, #sliding-popup h3, #sliding-popup p, #sliding-popup label, #sliding-popup div, .eu-cookie-compliance-more-button, .eu-cookie-compliance-secondary-button, .eu-cookie-withdraw-tab { color: #' . $config->get('popup_text_hex') . ';} .eu-cookie-withdraw-tab { border-color: #' . $config->get('popup_text_hex') . ';}';
+  }
+  if (!empty($config->get('popup_position')) && $config->get('popup_position') && !empty($config->get('fixed_top_position')) && $config->get('fixed_top_position')) {
+    $data['css'] .= '#sliding-popup.sliding-popup-top { position: fixed; }';
+  }
+
+  if ($config->get('accessibility_focus')) {
+    $data['css'] .= '
+      .disagree-button.eu-cookie-compliance-more-button:focus,
+      .eu-cookie-compliance-agree-button:focus,
+      .eu-cookie-compliance-default-button:focus,
+      .eu-cookie-compliance-hide-button:focus,
+      .eu-cookie-compliance-more-button-thank-you:focus,
+      .eu-cookie-withdraw-button:focus,
+      .eu-cookie-compliance-save-preferences-button:focus { outline: 3px solid #f00; }';
+  }
+
+  $method = $config->get('method') ? $config->get('method') : 'default';
+
+  if ($method === 'auto') {
+    $dnt = isset($_SERVER['HTTP_DNT']) ? $_SERVER['HTTP_DNT'] : NULL;
+    if ((int) $dnt === 0 && $dnt !== NULL) {
+      $method = 'default';
+    }
+    else {
+      $method = 'opt_in';
+    }
+  }
+
+  // Set default value for $popup_info_template.
+  $popup_info_template = 'eu_cookie_compliance_popup_info';
+
+  $withdraw_button_on_info_popup = $config->get('withdraw_button_on_info_popup');
+  $settings_tab_enabled = $config->get('settings_tab_enabled');
+  $save_preferences_button_label = '';
+
+  // Class names to be added in the event that Olivero styles are enabled.
+  // These will ensure that the buttons inherit the theme's styles without
+  // having to duplicate code.
+  $conditional_olivero_button_primary_classes = $config->get('use_olivero_css') ? ' button button--small button--primary' : '';
+  $conditional_olivero_button_secondary_classes = $config->get('use_olivero_css') ? ' button button--small' : '';
+
+  $tertiary_button_label = '';
+  $tertiary_button_class = '';
+  $close_button_enabled = FALSE;
+
+  switch ($method) {
+    case 'default':
+      $click_confirmation = $config->get('popup_clicking_confirmation');
+      $scroll_confirmation = $config->get('popup_scrolling_confirmation');
+      $primary_button_label = $config->get('popup_agree_button_message');
+      $primary_button_class = 'agree-button eu-cookie-compliance-default-button' . $conditional_olivero_button_primary_classes;
+      $secondary_button_label = '';
+      $secondary_button_class = $conditional_olivero_button_secondary_classes;
+      $privacy_settings_tab_label = FALSE;
+      $withdraw_button_on_info_popup = FALSE;
+      $info_templates = [
+        'legacy' => 'eu_cookie_compliance_popup_info_consent_default',
+        'new' => 'eu_cookie_compliance_popup_info',
+      ];
+      $popup_info_template = $info_templates[$config->get('popup_info_template')];
+      break;
+
+    case 'opt_in':
+      $click_confirmation = FALSE;
+      $scroll_confirmation = FALSE;
+      $primary_button_label = $config->get('popup_agree_button_message');
+      $primary_button_class = 'agree-button eu-cookie-compliance-secondary-button' . $conditional_olivero_button_secondary_classes;
+      $secondary_button_label = $config->get('disagree_button_label');
+      $secondary_button_class = 'decline-button eu-cookie-compliance-default-button' . $conditional_olivero_button_primary_classes;
+      $privacy_settings_tab_label = $settings_tab_enabled ? $config->get('withdraw_tab_button_label') : FALSE;
+      break;
+
+    case 'categories':
+      $click_confirmation = FALSE;
+      $scroll_confirmation = FALSE;
+      if ($config->get('enable_save_preferences_button')) {
+        $save_preferences_button_label = $config->get('save_preferences_button_label');
+        $primary_button_label = $config->get('accept_all_categories_button_label');
+      }
+      else {
+        $save_preferences_button_label = '';
+        $primary_button_label = $config->get('popup_agree_button_message');
+      }
+      $primary_button_class = 'agree-button eu-cookie-compliance-default-button' . $conditional_olivero_button_primary_classes;
+      $secondary_button_label = $config->get('withdraw_action_button_label');
+      $secondary_button_class = 'eu-cookie-withdraw-button visually-hidden' . $conditional_olivero_button_secondary_classes;
+      $tertiary_button_label = $config->get('reject_button_label');
+      $tertiary_button_class = 'eu-cookie-compliance-default-button eu-cookie-compliance-reject-button' . $conditional_olivero_button_secondary_classes;
+      $close_button_enabled = ($config->get('close_button_enabled')) ?: FALSE;
+      $privacy_settings_tab_label = ($withdraw_button_on_info_popup || $settings_tab_enabled) ? $config->get('withdraw_tab_button_label') : FALSE;
+      break;
+
+    case 'opt_out':
+      $click_confirmation = FALSE;
+      $scroll_confirmation = FALSE;
+      $primary_button_label = $config->get('disagree_button_label');
+      $primary_button_class = 'decline-button eu-cookie-compliance-secondary-button' . $conditional_olivero_button_secondary_classes;
+      $secondary_button_label = $config->get('popup_agree_button_message');
+      $secondary_button_class = 'agree-button eu-cookie-compliance-default-button' . $conditional_olivero_button_primary_classes;
+      $privacy_settings_tab_label = $settings_tab_enabled ? $config->get('withdraw_tab_button_label') : FALSE;
+      break;
+  }
+
+  $cookie_categories = $method === 'categories' ? \Drupal::entityTypeManager()->getStorage('cookie_category')->getCookieCategories() : FALSE;
+
+  $settings_tab_enabled = $config->get('settings_tab_enabled');
+
+  $popup_text_info = $config->get('popup_info.value');
+  $popup_text_agreed = $config->get('popup_agreed.value');
+  $withdraw_markup = $config->get('withdraw_message.value');
+  $mobile_popup_text_info = $config->get('mobile_popup_info.value');
+
+  if (\Drupal::service('module_handler')->moduleExists('token')) {
+    $token_service = \Drupal::token();
+    $popup_text_info = $token_service->replace($popup_text_info);
+    $popup_text_agreed = $token_service->replace($popup_text_agreed);
+    $withdraw_markup = $token_service->replace($withdraw_markup);
+    $mobile_popup_text_info = $token_service->replace($mobile_popup_text_info);
+  }
+  $popup_text_info = str_replace(["\r", "\n"], '', Xss::filterAdmin($popup_text_info));
+  $popup_text_agreed = str_replace(["\r", "\n"], '', Xss::filterAdmin($popup_text_agreed));
+  $withdraw_markup = str_replace(["\r", "\n"], '', Xss::filterAdmin($withdraw_markup));
+  $mobile_popup_text_info = str_replace(["\r", "\n"], '', Xss::filterAdmin($mobile_popup_text_info));
+
+  $was_debugging = FALSE;
+
+  /**
+   * @var Drupal\Core\Template\TwigEnvironment $twig_service
+   */
+  $twig_service = Drupal::service('twig');
+
+  if ($twig_service->isDebug()) {
+    $was_debugging = TRUE;
+    $twig_service->disableDebug();
+  }
+
+  // @NOTE: disagree_button is a legacy variable name renamed
+  // to more_info_button, keeped it to avoid problems in customs templates.
+  $html_info = FALSE;
+  $mobile_html_info = FALSE;
+  if ($config->get('popup_enabled')) {
+    $html_info = [
+      '#theme' => $popup_info_template,
+      '#message' => check_markup($popup_text_info, $config->get('popup_info.format')),
+      '#agree_button' => $primary_button_label,
+      '#disagree_button' => ($config->get('show_more_info') == TRUE) ? $config->get('popup_more_info_button_message') : FALSE,
+      '#more_info_button' => ($config->get('show_more_info') == TRUE) ? $config->get('popup_more_info_button_message') : FALSE,
+      '#secondary_button_label' => $secondary_button_label,
+      '#primary_button_class' => $primary_button_class,
+      '#secondary_button_class' => $secondary_button_class,
+      '#tertiary_button_label' => $tertiary_button_label,
+      '#tertiary_button_class' => $tertiary_button_class,
+      '#close_button_enabled' => $close_button_enabled,
+      '#cookie_categories' => $cookie_categories,
+      '#save_preferences_button_label' => $save_preferences_button_label,
+      '#privacy_settings_tab_label' => $privacy_settings_tab_label,
+      '#withdraw_button_on_info_popup' => $withdraw_button_on_info_popup,
+      '#method' => $method,
+      '#settings_tab_enabled' => $settings_tab_enabled,
+      '#olivero_primary_button_classes' => $conditional_olivero_button_primary_classes,
+      '#olivero_secondary_button_classes' => $conditional_olivero_button_secondary_classes,
+    ];
+
+    $mobile_html_info = [
+      '#theme' => $popup_info_template,
+      '#message' => check_markup($mobile_popup_text_info, $config->get('popup_info.format')),
+      '#agree_button' => $primary_button_label,
+      '#disagree_button' => ($config->get('show_more_info') == TRUE) ? $config->get('popup_more_info_button_message') : FALSE,
+      '#more_info_button' => ($config->get('show_more_info') == TRUE) ? $config->get('popup_more_info_button_message') : FALSE,
+      '#secondary_button_label' => $secondary_button_label,
+      '#primary_button_class' => $primary_button_class,
+      '#secondary_button_class' => $secondary_button_class,
+      '#tertiary_button_label' => $tertiary_button_label,
+      '#tertiary_button_class' => $tertiary_button_class,
+      '#close_button_enabled' => $close_button_enabled,
+      '#cookie_categories' => $cookie_categories,
+      '#save_preferences_button_label' => $save_preferences_button_label,
+      '#privacy_settings_tab_label' => $privacy_settings_tab_label,
+      '#withdraw_button_on_info_popup' => $withdraw_button_on_info_popup,
+      '#method' => $method,
+      '#olivero_primary_button_classes' => $conditional_olivero_button_primary_classes,
+      '#olivero_secondary_button_classes' => $conditional_olivero_button_secondary_classes,
+    ];
+
+    $html_info = Drupal::service('renderer')->renderRoot($html_info);
+    $html_info = trim(is_object($html_info) ? $html_info->__toString() : (string) $html_info);
+    $mobile_html_info = Drupal::service('renderer')->renderRoot($mobile_html_info);
+    $mobile_html_info = trim(is_object($mobile_html_info) ? $mobile_html_info->__toString() : (string) $mobile_html_info);
+  }
+  $html_agreed = FALSE;
+  if ($config->get('popup_agreed_enabled')) {
+    $html_agreed = [
+      '#theme' => 'eu_cookie_compliance_popup_agreed',
+      '#message' => check_markup($popup_text_agreed, $config->get('popup_agreed.format'), FALSE),
+      '#hide_button' => $config->get('popup_hide_button_message'),
+      '#find_more_button' => ($config->get('show_more_info') == TRUE) ? $config->get('popup_find_more_button_message') : FALSE,
+      '#olivero_primary_button_classes' => $conditional_olivero_button_primary_classes,
+      '#olivero_secondary_button_classes' => $conditional_olivero_button_secondary_classes,
+    ];
+    $html_agreed = Drupal::service('renderer')->renderRoot($html_agreed);
+    $html_agreed = trim(is_object($html_agreed) ? $html_agreed->__toString() : (string) $html_agreed);
+  }
+
+  $withdraw_markup = [
+    '#theme' => 'eu_cookie_compliance_withdraw',
+    '#message' => check_markup($withdraw_markup, $config->get('withdraw_message.format'), FALSE),
+    '#withdraw_tab_button_label' => $config->get('withdraw_tab_button_label'),
+    '#withdraw_action_button_label' => $config->get('withdraw_action_button_label'),
+    '#olivero_primary_button_classes' => $conditional_olivero_button_primary_classes,
+    '#olivero_secondary_button_classes' => $conditional_olivero_button_secondary_classes,
+  ];
+
+  $withdraw_markup = Drupal::service('renderer')->renderRoot($withdraw_markup);
+  $withdraw_markup = trim(is_object($withdraw_markup) ? $withdraw_markup->__toString() : (string) $withdraw_markup);
+
+  if ($was_debugging) {
+    $twig_service->enableDebug();
+  }
+
+  $popup_link = $config->get('popup_link');
+  if (UrlHelper::isExternal($popup_link)) {
+    $popup_link = Url::fromUri($popup_link);
+  }
+  else {
+    // Guard against translations being entered without leading slash.
+    if (substr($popup_link, 0, 1) !== '/' && substr($popup_link, 0, 1) !== '?' && substr($popup_link, 0, 1) !== '#') {
+      $popup_link = '/' . $popup_link;
+    }
+    $popup_link = $popup_link === '<front>' ? '/' : $popup_link;
+    $popup_link = Url::fromUserInput($popup_link);
+  }
+  $popup_link = $popup_link->toString();
+  $cookie_categories = \Drupal::entityTypeManager()->getStorage('cookie_category')->getCookieCategories();
+
+  $data['variables'] = [
+    'cookie_policy_version' => $config->get('cookie_policy_version') ?: '1.0.0',
+    'popup_enabled'        => $config->get('popup_enabled'),
+    'popup_agreed_enabled' => $config->get('popup_agreed_enabled'),
+    'popup_hide_agreed'    => $config->get('popup_hide_agreed'),
+    'popup_clicking_confirmation' => $click_confirmation,
+    'popup_scrolling_confirmation' => $scroll_confirmation,
+    'popup_html_info'      => $config->get('popup_enabled') ? $html_info : FALSE,
+    'use_mobile_message'   => !empty($config->get('use_mobile_message')) ? $config->get('use_mobile_message') : FALSE,
+    'mobile_popup_html_info' => $config->get('popup_enabled') ? $mobile_html_info : FALSE,
+    'mobile_breakpoint'    => !empty($config->get('mobile_breakpoint')) ? $config->get('mobile_breakpoint') : '768',
+    'popup_html_agreed'    => $config->get('popup_agreed_enabled') ? $html_agreed : FALSE,
+    'popup_use_bare_css'   => !empty($config->get('use_bare_css')) ? $config->get('use_bare_css') : FALSE,
+    'popup_height'         => !empty($config->get('popup_height')) ? $config->get('popup_height') : 'auto',
+    'popup_width'          => !empty($config->get('popup_width')) ? $config->get('popup_width') : '100%',
+    'popup_delay'          => (int) ($config->get('popup_delay')),
+    'popup_link'           => $popup_link,
+    'popup_link_new_window' => $config->get('popup_link_new_window'),
+    'popup_position'       => $config->get('popup_position'),
+    'fixed_top_position'   => !empty($config->get('fixed_top_position')) ? $config->get('fixed_top_position') : FALSE,
+    'popup_language'       => $language->getId(),
+    'store_consent'        => $config->get('consent_storage_method') !== 'do_not_store',
+    'better_support_for_screen_readers'         => !empty($config->get('better_support_for_screen_readers')) ? $config->get('better_support_for_screen_readers') : FALSE,
+    'cookie_name'          => !empty($config->get('cookie_name')) ? $config->get('cookie_name') : '',
+    'reload_page'          => !empty($config->get('reload_page')) ? $config->get('reload_page') : FALSE,
+    'domain'               => $config->get('domain'),
+    'domain_all_sites'     => $config->get('domain_all_sites'),
+    'popup_eu_only'        => !empty($config->get('eu_only')) ? $config->get('eu_only') : FALSE,
+    'popup_eu_only_js'     => !empty($config->get('eu_only_js')) ? $config->get('eu_only_js') : FALSE,
+    'cookie_lifetime'      => $config->get('cookie_lifetime'),
+    'cookie_session'       => $config->get('cookie_session'),
+    'set_cookie_session_zero_on_disagree' => $config->get('set_cookie_session_zero_on_disagree'),
+    'disagree_do_not_show_popup' => !empty($config->get('disagree_do_not_show_popup')) ? $config->get('disagree_do_not_show_popup') : FALSE,
+    'method'               => $method,
+    'automatic_cookies_removal'  => empty($config->get('automatic_cookies_removal')) ? FALSE : $config->get('automatic_cookies_removal'),
+    'allowed_cookies'  => !empty($config->get('allowed_cookies')) ? $config->get('allowed_cookies') : '',
+    'withdraw_markup'      => $withdraw_markup,
+    'withdraw_enabled'     => $config->get('withdraw_enabled'),
+    'reload_options'       => $config->get('reload_options'),
+    'reload_routes_list'   => !empty($routes_list) ? $routes_list : $config->get('reload_routes_list'),
+    'withdraw_button_on_info_popup' => $config->get('withdraw_button_on_info_popup'),
+    'cookie_categories'   => is_array($cookie_categories) ? array_keys($cookie_categories) : FALSE,
+    'cookie_categories_details' => is_array($cookie_categories) ? $cookie_categories : FALSE,
+    'enable_save_preferences_button' => $config->get('enable_save_preferences_button'),
+    'cookie_value_disagreed' => !empty($config->get('cookie_value_disagreed')) ? $config->get('cookie_value_disagreed') : '0',
+    'cookie_value_agreed_show_thank_you' => !empty($config->get('cookie_value_agreed_show_thank_you')) ? $config->get('cookie_value_agreed_show_thank_you') : '1',
+    'cookie_value_agreed' => !empty($config->get('cookie_value_agreed')) ? $config->get('cookie_value_agreed') : '2',
+    'containing_element'  => $config->get('containing_element'),
+    'settings_tab_enabled' => $config->get('settings_tab_enabled'),
+    'olivero_primary_button_classes' => $conditional_olivero_button_primary_classes,
+    'olivero_secondary_button_classes' => $conditional_olivero_button_secondary_classes,
+    'close_button_action' => !empty($config->get('close_button_action')) ? $config->get('close_button_action') : '',
+  ];
+  return $data;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function eu_cookie_compliance_theme($existing, $type, $theme, $path) {
+  return [
+    'eu_cookie_compliance_popup_info' => [
+      'template' => 'eu_cookie_compliance_popup_info',
+      'variables' => [
+        'message' => NULL,
+        'agree_button' => NULL,
+        'disagree_button' => NULL,
+        'more_info_button' => NULL,
+        'secondary_button_label' => NULL,
+        'primary_button_class' => NULL,
+        'secondary_button_class' => NULL,
+        'tertiary_button_label' => NULL,
+        'tertiary_button_class' => NULL,
+        'close_button_enabled' => NULL,
+        'cookie_categories' => NULL,
+        'save_preferences_button_label' => NULL,
+        'privacy_settings_tab_label' => NULL,
+        'withdraw_button_on_info_popup' => FALSE,
+        'method' => 'default',
+        'olivero_primary_button_classes' => NULL,
+        'olivero_secondary_button_classes' => NULL,
+      ],
+    ],
+    'eu_cookie_compliance_popup_info_consent_default' => [
+      'template' => 'eu_cookie_compliance_popup_info_consent_default',
+      'variables' => [
+        'message' => NULL,
+        'agree_button' => NULL,
+        'disagree_button' => NULL,
+        'secondary_button_label' => NULL,
+        'primary_button_class' => NULL,
+        'secondary_button_class' => NULL,
+        'olivero_primary_button_classes' => NULL,
+        'olivero_secondary_button_classes' => NULL,
+      ],
+    ],
+    'eu_cookie_compliance_popup_agreed' => [
+      'template' => 'eu_cookie_compliance_popup_agreed',
+      'variables' => [
+        'message' => NULL,
+        'hide_button' => NULL,
+        'find_more_button' => NULL,
+        'olivero_primary_button_classes' => NULL,
+        'olivero_secondary_button_classes' => NULL,
+      ],
+    ],
+    'eu_cookie_compliance_withdraw' => [
+      'template' => 'eu_cookie_compliance_withdraw',
+      'variables' => [
+        'withdraw_tab_button_label' => NULL,
+        'message' => NULL,
+        'withdraw_action_button_label' => NULL,
+        'olivero_primary_button_classes' => NULL,
+        'olivero_secondary_button_classes' => NULL,
+      ],
+    ],
+  ];
+}
+
+/**
+ * Converts a multiline, list of key|label|description strings to an array.
+ *
+ * @param string $string
+ *   A multiline string containing key, label and optionally a description
+ *   separated by a pipe symbol.
+ *
+ * @return array
+ *   An array of categories the form
+ *   [key => ['label' => label, 'description' => description]]
+ */
+function _eu_cookie_compliance_extract_category_key_label_description($string) {
+  $categories = [];
+
+  $string = trim(preg_replace('#>(\r\n)+\s*#', '', $string), "\r\n ");
+
+  $list = explode("\n", $string);
+  $list = array_map('trim', $list);
+  $list = array_filter($list, 'strlen');
+
+  foreach ($list as $text) {
+    $parts = explode('|', $text);
+    $num_parts = count($parts);
+    if ($num_parts >= 3) {
+      $key = trim($parts[0]);
+      $label = trim($parts[1]);
+      $description = trim($parts[2]);
+    }
+    elseif ($num_parts === 2) {
+      $key = trim($parts[0]);
+      $label = trim($parts[1]);
+      $description = '';
+    }
+    else {
+      $key = $label = trim($parts[0]);
+      $description = '';
+    }
+
+    $categories[$key] = ['label' => $label, 'description' => $description];
+  }
+  return $categories;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function eu_cookie_compliance_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_state->getFormObject() instanceof PersonalInformationFormInterface) {
+    /** @var \Drupal\eu_cookie_compliance\PersonalInformationFormInterface $form_object */
+    $form_object = $form_state->getFormObject();
+
+    $form_object->formInjectGdprCheckbox($form, $form_state);
+    $form['#submit'][] = [$form_object, 'formSubmitGdprCheckbox'];
+  }
+}
+
+/**
+ * Validate field for a HEX value if a value is set.
+ *
+ * @param array $element
+ *   Element.
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ *   Form State Interface.
+ */
+function eu_cookie_compliance_validate_hex(array $element, FormStateInterface $form_state) {
+  if (\Drupal::moduleHandler()->moduleExists('coloris')) {
+    $element['#value'] = substr($element['#value'], 1);
+  }
+
+  if (!empty($element['#value']) && !preg_match('/^[0-9a-fA-F]{3,6}$/', $element['#value'])) {
+    $form_state->setError($element, t('%name must be a HEX value (without leading #) or empty.', ['%name' => $element['#title']]));
+  }
+}
+
+/**
+ * Check if the user is in the EU.
+ */
+function eu_cookie_compliance_user_in_eu() {
+  $geoip_match = FALSE;
+  $eu_countries_default = [
+    NULL, 'AT', 'AX', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES',
+    'EU', 'FI', 'FR', 'GB', 'GF', 'GI', 'GP', 'GR', 'HR', 'HU', 'IE', 'IS',
+    'IT', 'LI', 'LT', 'LU', 'LV', 'ME', 'MF', 'MQ', 'MT', 'NL', 'NO', 'PL',
+    'PT', 'RE', 'RO', 'SE', 'SI', 'SK', 'YT', 'UK',
+  ];
+  // Allow custom array of countries to be loaded from settings.php, defaulting
+  // to the array above.
+  $config = \Drupal::config('eu_cookie_compliance.settings');
+  $eu_countries = !empty($config->get('eu_countries')) ? $config->get('eu_countries') : $eu_countries_default;
+
+  $ip_address = \Drupal::request()->getClientIp();
+
+  // Try to get country_code by php extension.
+  $country_code = extension_loaded('geoip') ? geoip_country_code_by_name($ip_address) : '';
+
+  // Try to get country_code by smart_ip module.
+  if (\Drupal::moduleHandler()->moduleExists('smart_ip')) {
+    /** @var \Drupal\smart_ip\SmartIpLocation $location_service */
+    $location_service = \Drupal::service('smart_ip.smart_ip_location');
+    $country_code = $location_service->get('countryCode');
+  }
+  // Try to get country_code by geoip module.
+  elseif (Drupal::moduleHandler()->moduleExists('geoip')) {
+    $geo_location_service = \Drupal::service('geoip.geolocation');
+    $geo_ip_session = $geo_location_service->geolocate($ip_address);
+    $country_code = !empty($geo_ip_session) ? $geo_ip_session : NULL;
+  }
+
+  // If the CloudFlare provided country header is available, use it as a
+  // fallback. See:
+  // https://support.cloudflare.com/hc/en-us/articles/200168236-What-does-Cloudflare-IP-Geolocation-do-
+  if (empty($country_code) && (isset($_SERVER['HTTP_CF_IPCOUNTRY']))) {
+    $country_code = $_SERVER['HTTP_CF_IPCOUNTRY'];
+  }
+
+  if (in_array($country_code, $eu_countries) || $country_code == '' || $country_code == '-') {
+    $geoip_match = TRUE;
+  }
+
+  return [
+    'country' => $country_code,
+    'in_eu' => $geoip_match,
+  ];
+}
+
+/**
+ * Implements hook_js_alter().
+ */
+function eu_cookie_compliance_js_alter(&$javascript, AttachedAssetsInterface $assets) {
+  $config = \Drupal::config('eu_cookie_compliance.settings');
+  $disabled_javascripts = $config->get('disabled_javascripts');
+  $disabled_javascripts = _eu_cookie_compliance_explode_multiple_lines($disabled_javascripts);
+
+  $exclude_paths = explode(PHP_EOL, $config->get('exclude_paths'));
+  $current_path = \Drupal::service('path.current')->getPath();
+
+  $path_is_excluded = FALSE;
+  foreach ($exclude_paths as $path) {
+    $path_clean = trim($path);
+    if (\Drupal::service('path.matcher')->matchPath($current_path, $path_clean)) {
+      $path_is_excluded = TRUE;
+    }
+  }
+
+  if ($config->get('exclude_admin_theme') && \Drupal::service('router.admin_context')->isAdminRoute()) {
+    $path_is_excluded = TRUE;
+  }
+
+  $roles = \Drupal::entityTypeManager()->getStorage('user_role')->loadMultiple();
+  $admin_role = [];
+
+  foreach ($roles as $role) {
+    if ($role->isAdmin()) {
+      $admin_role = $role->id();
+      break;
+    }
+  }
+
+  if (((int) \Drupal::currentUser()->id() === 1 || in_array($admin_role, \Drupal::currentUser()->getRoles())) && $config->get('exclude_uid_1')) {
+    $path_is_excluded = TRUE;
+  }
+
+  if ($path_is_excluded === FALSE) {
+    foreach ($disabled_javascripts as $script) {
+      // Remove 'category:' if present.
+      $parts = explode('%3A', $script);
+      if (count($parts) > 2) {
+        array_shift($parts);
+        $script = implode(':', $parts);
+      }
+      else {
+        $script = end($parts);
+      }
+      // Parse the string and drop the parameter that is a behavior name.
+      if (strpos($script, '%7C') !== FALSE) {
+        @list($script) = explode('%7C', $script);
+      }
+      _eu_cookie_compliance_convert_relative_uri($script);
+
+      unset($javascript[$script]);
+    }
+  }
+
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function eu_cookie_compliance_page_attachments_alter(array &$attachments) {
+  $config = Drupal::config('eu_cookie_compliance.settings');
+  $disabled_javascripts = $config->get('disabled_javascripts');
+  $disabled_javascripts = _eu_cookie_compliance_explode_multiple_lines($disabled_javascripts);
+
+  foreach ($disabled_javascripts as $script) {
+    // Remove 'category:' if present.
+    $parts = explode('%3A', $script);
+    // The script can use filesystem stream wrappers, so considerate them.
+    if (count($parts) > 2) {
+      array_shift($parts);
+      $script = implode(':', $parts);
+    }
+    else {
+      $script = end($parts);
+    }
+
+    // Parse the string and drop the parameter that is a behavior name.
+    if (strpos($script, '%7C') !== FALSE) {
+      @list($script) = explode('%7C', $script);
+    }
+    if (!UrlHelper::isExternal($script)) {
+      _eu_cookie_compliance_convert_relative_uri($script);
+      $script = '/' . $script;
+    }
+
+    if (!empty($attachments['#attached']['html_head'])) {
+      // html_head is a 2 level array.
+      foreach ($attachments['#attached']['html_head'] as &$head_section) {
+        array_walk($head_section, function (&$html_head, $key) use ($script) {
+          // Filter only script tags.
+          if (!empty($html_head['#attributes']['src']) && !empty($html_head['#tag']) && $html_head['#tag'] === 'script') {
+            // Remove possible querystring.
+            $head_script = $html_head['#attributes']['src'];
+            $query_string_pos = strpos($head_script, '?');
+
+            if ($query_string_pos !== FALSE) {
+              $head_script = substr($head_script, 0, $query_string_pos);
+            }
+            if ($head_script === $script) {
+              $html_head['#access'] = FALSE;
+            }
+          }
+        });
+      }
+    }
+  }
+}
+
+/**
+ * Splits a return delimited text string into an array.
+ *
+ * @param string $text
+ *   Text to split.
+ *
+ * @return array
+ *   Text split into an array.
+ */
+function _eu_cookie_compliance_explode_multiple_lines($text) {
+  $text = explode("\r\n", $text);
+  if (count($text) == 1) {
+    $text = explode("\r", $text[0]);
+  }
+  if (count($text) == 1) {
+    $text = explode("\n", $text[0]);
+  }
+
+  array_walk($text, '_eu_cookie_compliance_convert_relative_uri');
+  return $text;
+}
+
+/**
+ * Helper function to set module weight.
+ */
+function eu_cookie_compliance_module_set_weight() {
+  $weight = 1;
+  $exclude_modules = [
+    'eu_cookie_compliance',
+  ];
+  // Allow other modules to exclude themselves.
+  \Drupal::moduleHandler()->alter('eu_cookie_compliance_module_weight_exclude', $exclude_modules);
+
+  $extension_config = \Drupal::configFactory()->get('core.extension');
+  // Loop through all installed modules to find the highest weight.
+  foreach ($extension_config->get('module') as $module_name => $module_weight) {
+    if ($module_weight > $weight && !in_array($module_name, $exclude_modules)) {
+      $weight = $module_weight + 1;
+    }
+  }
+  module_set_weight('eu_cookie_compliance', $weight);
+}
+
+/**
+ * Convert uri to relative path.
+ *
+ * Example public://file.js to /sites/default/files/file.js.
+ *
+ * @param string $element
+ *   Url to transform.
+ */
+function _eu_cookie_compliance_convert_relative_uri(&$element) {
+  if ((float) \Drupal::VERSION < 9.3) {
+    $element = preg_replace('/^\//', '', file_url_transform_relative(file_create_url($element)));
+  }
+  else {
+    $url = \Drupal::service('file_url_generator')->generateString($element);
+    $element = preg_replace('/^\//', '', $url);
+  }
+}
+
+/**
+ * Implements hook_migration_plugins_alter().
+ *
+ * Names of EU cookie compliance permissions changed between Drupal 7 and 8|9.
+ * Map the permission names respectively.
+ */
+function eu_cookie_compliance_migration_plugins_alter(array &$migrations) {
+  if (
+    !empty($migrations['d7_user_role']['process']['permissions'][0]) &&
+    $migrations['d7_user_role']['process']['permissions'][0]['plugin'] === 'static_map'
+  ) {
+    $migrations['d7_user_role']['process']['permissions'][0]['map']['administer EU Cookie Compliance categories'] = 'administer eu cookie compliance categories';
+    $migrations['d7_user_role']['process']['permissions'][0]['map']['administer EU Cookie Compliance popup'] = 'administer eu cookie compliance popup';
+    $migrations['d7_user_role']['process']['permissions'][0]['map']['display EU Cookie Compliance popup'] = 'display eu cookie compliance popup';
+  }
+}

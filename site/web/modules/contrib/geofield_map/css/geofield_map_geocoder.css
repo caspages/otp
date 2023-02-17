@@ -1,0 +1,16 @@
+/* line 1, ../sass/geofield_map_geocoder.scss */
+.ui-autocomplete-input {
+  background-image: url(../images/throbber-inactive.png);
+  background-repeat: no-repeat;
+  background-position: 100% center;
+}
+/* line 5, ../sass/geofield_map_geocoder.scss */
+.ui-autocomplete-input .ui-menu-item {
+  font-size: 0.95em;
+}
+/* line 8, ../sass/geofield_map_geocoder.scss */
+.ui-autocomplete-input.ui-autocomplete-loading {
+  background-image: url(../images/throbber-active.gif);
+  background-position: 100% center;
+  /* LTR */
+}

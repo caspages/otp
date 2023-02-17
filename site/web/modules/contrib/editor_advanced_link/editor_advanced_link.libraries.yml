@@ -1,0 +1,18 @@
+editor_advanced_link:
+  version: VERSION
+  js:
+    js/editor_advanced_link.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.announce
+    - core/jquery
+    - core/once
+
+ckeditor5:
+  version: VERSION
+  js:
+    js/build/editorAdvancedLink.js: { preprocess: false, minified: true }
+  dependencies:
+    - core/drupal
+    - ckeditor5/ckeditor5
+    - ckeditor5/ckeditor5.link

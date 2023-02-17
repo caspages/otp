@@ -1,0 +1,24 @@
+editor_advanced_link_link:
+  ckeditor5:
+    plugins:
+      - editorAdvancedLink.EditorAdvancedLink
+    config:
+      editorAdvancedLink:
+        # These are all options; this will be filtered based on configuration.
+        # @see \Drupal\editor_advanced_link\Plugin\CKEditor5Plugin\AdvancedLink::getDynamicPluginConfig
+        options:
+          - aria-label
+          - title
+          - class
+          - id
+          - target
+          - rel
+  drupal:
+    label: Advanced links
+    class: Drupal\editor_advanced_link\Plugin\CKEditor5Plugin\AdvancedLink
+    library: editor_advanced_link/ckeditor5
+    elements:
+      - <a aria-label title class id target="_blank" rel>
+    conditions:
+      plugins:
+        - ckeditor5_link

@@ -1,0 +1,4 @@
+leaflet_demo_form:
+  css:
+    theme:
+      css/leaflet_demo.css: {}

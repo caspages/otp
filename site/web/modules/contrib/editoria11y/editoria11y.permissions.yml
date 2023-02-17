@@ -1,0 +1,6 @@
+'view editoria11y checker':
+  title: 'View Editoria11y Checker'
+  description: '<em>Assign to all content editors.</em>'
+'administer editoria11y checker':
+  title: 'Administer Editoria11y'
+  description: '<em>Limit to roles trusted to modify JavaScript configuration.</em>'

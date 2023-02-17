@@ -1,0 +1,12 @@
+editoria11y:
+  css:
+    theme:
+      css/editoria11y.css: {preprocess: false}
+  js:
+    js/editoria11y-localization.js: {preprocess: false}
+    js/editoria11y-prefs.js: {preprocess: false}
+    js/editoria11y-drupal.js: {preprocess: false}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

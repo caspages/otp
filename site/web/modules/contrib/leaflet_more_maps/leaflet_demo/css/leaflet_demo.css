@@ -1,0 +1,8 @@
+#edit-demo-map-parameters .form-type-textfield {
+  display: inline-block;
+  padding-right: 20px;
+}
+#edit-demo-map-parameters .form-submit {
+  display: block;
+  margin-left: 0;
+}

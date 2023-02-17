@@ -1,0 +1,52 @@
+{
+  "name": "drupal/eu_cookie_compliance",
+  "require": {
+    "drupal/core": "^8.9 || ^9 || ^10"
+  },
+  "description": "This module aims at making the website compliant with the new EU cookie regulation.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "homepage": "https://drupal.org/project/eu_cookie_compliance",
+  "keywords": [
+    "Drupal",
+    "Cookie",
+    "CookieCompliance",
+    "GDPR"
+  ],
+  "authors": [
+    {
+      "name": "Marcin Pajdzik",
+      "homepage": "https://www.drupal.org/u/marcin-pajdzik",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Sven Berg Ryen",
+      "homepage": "https://www.drupal.org/u/svenryen",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Neslee Canil Pinto",
+      "homepage": "https://www.drupal.org/u/neslee-canil-pinto",
+      "role": "Maintainer"
+    },
+    {
+      "name": "See other contributors",
+      "homepage":"https://www.drupal.org/node/1538032/committers"
+    }
+  ],
+  "support": {
+    "docs": "https://www.drupal.org/docs/contributed-modules/eu-cookie-compliance",
+    "forum": "https://drupal.stackexchange.com/search?q=eu+cookie+compliance",
+    "issues": "https://www.drupal.org/project/issues/eu_cookie_compliance?version=8.x",
+    "slack": "https://app.slack.com/client/T06GX3JTS/C012XBTH81E",
+    "source": "https://git.drupalcode.org/project/eu-cookie-compliance"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url":  "https://packages.drupal.org/8"
+    }
+  ]
+}

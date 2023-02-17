@@ -1,0 +1,5 @@
+block_content_revision_ui.settings:
+  title: 'Block Content Revision UI'
+  description: 'Block Content Revision UI settings.'
+  route_name: block_content_revision_ui.settings
+  parent: system.admin_config_ui

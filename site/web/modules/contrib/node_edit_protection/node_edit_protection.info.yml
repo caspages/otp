@@ -1,0 +1,10 @@
+name: Node Edit Protection
+description: 'Protect the user against navigating away from a node edit form before saving their changes.'
+core: 8.x
+core_version_requirement: ^8 || ^9
+type: module
+
+# Information added by Drupal.org packaging script on 2020-09-01
+version: '8.x-1.0'
+project: 'node_edit_protection'
+datestamp: 1598972382

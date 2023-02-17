@@ -1,0 +1,7 @@
+editoria11y.settings:
+  path: '/admin/config/content/editoria11y'
+  defaults:
+    _form: '\Drupal\editoria11y\Form\Editoria11ySettings'
+    _title: 'Editoria11y Settings'
+  requirements:
+    _permission: 'administer editoria11y checker'

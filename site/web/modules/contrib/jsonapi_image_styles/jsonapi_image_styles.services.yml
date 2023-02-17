@@ -1,0 +1,7 @@
+services:
+
+  # Event subscribers.
+  jsonapi_image_styles.config_subscriber:
+    class: Drupal\jsonapi_image_styles\EventSubscriber\ConfigSubscriber
+    tags:
+      - { name: event_subscriber }

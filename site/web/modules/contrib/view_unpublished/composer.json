@@ -1,0 +1,12 @@
+{
+    "name": "drupal/view_unpublished",
+    "description": "Select which roles should be able to see unpublished nodes.",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Agnes Chisholm",
+            "email": "amaria@chisholmtech.com"
+        }
+    ],
+    "require": {}
+}

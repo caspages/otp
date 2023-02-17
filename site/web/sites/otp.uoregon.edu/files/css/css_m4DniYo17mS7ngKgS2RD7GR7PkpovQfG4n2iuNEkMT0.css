@@ -1,0 +1,1 @@
+.caption{display:table;}.caption > *{display:block;max-width:100%;}.caption > figcaption{display:table-caption;max-width:none;caption-side:bottom;}.caption > figcaption[contenteditable=true]:empty:before{content:attr(data-placeholder);font-style:italic;}

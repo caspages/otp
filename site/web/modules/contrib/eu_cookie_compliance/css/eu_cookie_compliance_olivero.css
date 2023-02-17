@@ -1,0 +1,260 @@
+/*
+ * @file
+ * Styles meant to extend the Drupal Olivero theme's look and
+ * feel into the EU Cookie Compliance module.
+ */
+
+/* Override CSS from injected <style> tag. */
+div#sliding-popup,
+div#sliding-popup .eu-cookie-withdraw-banner,
+.eu-cookie-withdraw-tab {
+  background: unset;
+}
+
+#sliding-popup h1,
+#sliding-popup h2,
+#sliding-popup h3,
+#sliding-popup p,
+#sliding-popup label,
+#sliding-popup div,
+.eu-cookie-compliance-more-button,
+.eu-cookie-compliance-secondary-button,
+.eu-cookie-withdraw-tab {
+  color: unset;
+}
+
+#sliding-popup {
+  position: fixed;
+  right: 0; /* LTR */
+  right: var(--drupal-displace-offset-right, 0px); /* LTR */
+  z-index: 1000;
+  width: 100%;
+  max-width: 600px;
+  padding: 27px;
+  padding: var(--sp1-5, 27px);
+  padding-top: 0;
+  filter: drop-shadow(0 0 72px rgb(0 0 0 / 10%));
+}
+
+@media print {
+  #sliding-popup {
+    display: none; /* Don't print this. */
+  }
+}
+
+[dir="rtl"] #sliding-popup {
+  left: 0;
+  left: var(--drupal-displace-offset-left, 0px);
+}
+
+@media (min-width: 1800px) {
+  #sliding-popup {
+    left: 1100px; /* LTR; Arbitrary number meant to have the popup half cover the content at wide viewports. */
+    right: auto; /* LTR */
+  }
+
+  [dir="rtl"] #sliding-popup {
+    left: auto;
+    right: 1100px; /* Arbitrary number meant to have the popup half cover the content at wide viewports. */
+  }
+}
+
+.eu-cookie-compliance-content {
+  position: relative; /* Anchor possible "close" button. */
+  max-height: calc(100vh - 54px);
+  max-height: calc(100vh - 2 * var(--sp1-5, 27px) - var(--drupal-displace-offset-top, 0px));
+  overflow: auto;
+  background: white;
+  background: var(--color--white, white);
+  padding: 27px;
+  padding: var(--sp1-5, 27px);
+  color: #313637;
+  color: var(--color--gray-20, #313637);
+  border: solid 1px #eaeef0;
+  border: solid 1px var(--color--gray-95, #eaeef0);
+  box-shadow: 0 0 72px rgba(0, 0, 0, 0.1);
+}
+
+@supports (filter: drop-shadow(0 0 72px rgb(0 0 0 / 10%))) {
+  .eu-cookie-compliance-content {
+    box-shadow: none;
+  }
+}
+
+.eu-cookie-compliance-categories {
+  padding: 18px 0;
+  padding: var(--sp, 18px) 0;
+  margin-left: 50px; /* LTR; Create room for checkboxes to the left of the categories. */
+}
+
+[dir="rtl"] .eu-cookie-compliance-categories {
+  margin-left: 0;
+  margin-right: 50px;
+}
+
+.eu-cookie-compliance-category:not(:last-child) {
+  margin-bottom: 9px;
+  margin-bottom: var(--sp0-5, 9px);
+}
+
+[dir] .eu-cookie-compliance-categories input[type="checkbox"] + label {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.eu-cookie-compliance-categories input[type="checkbox"] {
+  position: absolute;
+  margin-top: 5px;
+  margin-left: -50px; /* LTR; Pull checkboxes out of document flow to align left of content. */
+}
+
+
+[dir="rtl"] .eu-cookie-compliance-categories input[type="checkbox"] {
+  margin-left: 0;
+  margin-right: -50px;
+}
+
+/* Make the more button look like a link. @todo - this should really be an <a> tag. */
+.eu-cookie-compliance-more-button {
+  cursor: pointer;
+  display: inline;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: none;
+  text-decoration: underline;
+  background: none;
+}
+
+.eu-cookie-compliance-message {
+  margin-bottom: 18px;
+  margin-bottom: var(--sp, 18px);
+}
+
+.eu-cookie-compliance-message h2 {
+  font-size: 22px;
+  line-height: 1.2;
+  margin: 9px 0;
+  margin: var(--sp0-5, 9px) 0;
+}
+
+@media (min-width: 700px) {
+  .eu-cookie-compliance-message h2 {
+    font-size: 28px;
+  }
+}
+
+.eu-cookie-compliance-message h2:first-child {
+  margin-top: 0;
+}
+
+.eu-cookie-compliance-message h3 {
+  font-size: 12px;
+}
+
+.eu-cookie-compliance-message p {
+  font-size: 12px;
+}
+
+[dir] .eu-cookie-compliance-buttons .button {
+  margin-top: 0;
+  margin-right: 9px; /* LTR */
+  margin-right: var(--sp0-5, 9px); /* LTR */
+  margin-bottom: 0;
+}
+
+[dir="rtl"] .eu-cookie-compliance-buttons .button {
+  margin-left: 9px; /* LTR */
+  margin-left: var(--sp0-5, 9px); /* LTR */
+}
+
+/* Buttons can stack at narrow widths. Make sure they look good. */
+@media (max-width: 500px) {
+  [dir] .eu-cookie-compliance-buttons .button {
+    margin-bottom: 4px;
+  }
+}
+
+/* Make the "save preferences" button a little smaller. */
+.button.eu-cookie-compliance-save-preferences-button {
+  font-size: 14px;
+  padding: 5px 15px;
+  height: 40px;
+}
+
+.eu-cookie-compliance-categories {
+  /* Anchor nested input[type="checkboxes"], which is necessary in the event
+   * the popup is taller than the viewport and is able to scroll. */
+  position: relative;
+}
+
+.eu-cookie-compliance-category-description {
+  margin: 5px 0;
+  color: #5f7581;
+  color: var(--color--gray-45, #5f7581);
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+}
+
+/* "Privacy settings" tab that appears above popup, and shows/hides the popup. This
+ * needs to appear against the bottom of the viewport when the popup is hidden. */
+.eu-cookie-withdraw-tab {
+  position: absolute;
+  bottom: calc(100% - 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  padding: 4px 9px;
+  border: solid 1px #eaeef0;
+  border: solid 1px var(--color--gray-95, #eaeef0);
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  background: white;
+  background: var(--color--white, white);
+  appearance: none;
+  cursor: pointer;
+}
+
+/* Close button. This can be seen if you enable the option for "Opt-in with categories",
+ * and then check the box for "Close button/box enabled" button". */
+.eu-cookie-compliance-close-button {
+  position: absolute;
+  top: 0;
+  right: 0; /* LTR */
+  display: block;
+  width: 50px;
+  height: 50px;
+  text-indent: -9999px;
+  color: var(--color--blue-10, #0f6292);
+  overflow: hidden;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.eu-cookie-compliance-close-button:focus {
+  outline: solid 2px currentColor;
+  outline-offset: -4px;
+}
+
+[dir="rtl"] .eu-cookie-compliance-close-button {
+  left: 0;
+  right: auto;
+}
+
+.eu-cookie-compliance-close-button:before,
+.eu-cookie-compliance-close-button:after {
+  position: absolute;
+  top: calc(50% + 1px);
+  left: 20%;
+  width: 60%;
+  height: 0;
+  content: "";
+  border-top: solid 2px currentColor;
+  transform: rotate(45deg);
+}
+
+.eu-cookie-compliance-close-button:after {
+  transform: rotate(-45deg);
+}

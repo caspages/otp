@@ -6,8 +6,9 @@ parameters:
   # is instantiated *during* routeMatch so no route name is available yet.
   # @todo
   jsonapi_page_limit.size_max:
-    /jsonapi/node/theater: 250
+    # path: value
     # e.g. /jsonapi/node/alert: 250
+    /jsonapi/node/theater: 250
 
 services:
   # Controller.
@@ -27,4 +28,5 @@ services:
       - '@current_user'
       # Add our custom service and param
       - '@router.request_context'
+      - '@path.matcher'
       - '%jsonapi_page_limit.size_max%'

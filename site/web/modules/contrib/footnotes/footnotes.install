@@ -1,0 +1,45 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the Footnotes module.
+ */
+
+/**
+ * Implements hook_requirements().
+ */
+function footnotes_requirements($phase) {
+  if ($phase != 'runtime') {
+    return [];
+  }
+
+  // Check if fakeobjects module is enabled and properly configured.
+  $fakeobjects_exist = \Drupal::moduleHandler()->moduleExists('fakeobjects');
+  if ($fakeobjects_exist) {
+    $fakeobjects_requirements = fakeobjects_requirements($phase);
+    if ($fakeobjects_requirements['fakeobjects']['severity'] === REQUIREMENT_OK) {
+      $requirements['footnotes'] = [
+        'title' => t('Footnotes'),
+        'value' => t('Footnotes requirements are OK.'),
+        'severity' => REQUIREMENT_OK,
+      ];
+    }
+    else {
+      $requirements['footnotes'] = [
+        'title' => t('Footnotes'),
+        'value' => t('Footnotes requirements are not properly configured. Please check Fakeobjects module requirements.'),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+  else {
+    $requirements['footnotes'] = [
+      'title' => t('Footnotes'),
+      'value' => t("<a href=':href'>Fakeobjects module</a> isn't installed/enabled.", [':href' => 'https://www.drupal.org/project/fakeobjects']),
+      'severity' => REQUIREMENT_ERROR,
+      'description' => t('Footnotes module has a dependency on Fakeobjects module. Ensure that Fakeobjects module is enabled and configured.'),
+    ];
+  }
+
+  return $requirements;
+}

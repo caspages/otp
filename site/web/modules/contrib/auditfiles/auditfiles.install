@@ -1,0 +1,31 @@
+<?php
+
+use Drupal\user\Entity\Role;
+
+/**
+ * @file
+ * This file is used to write install Uninstall hooks that used in the module.
+ */
+
+/**
+ * Hook_uninstall().
+ */
+function auditfiles_uninstall() {
+  \Drupal::configFactory()->getEditable('auditfiles.settings')->delete();
+}
+
+/**
+ * Provide upgrade path for permissions change from 1.x to 2.x.
+ */
+function auditfiles_update_8001() {
+  $roles = Role::loadMultiple();
+  foreach ($roles as $role => $roleObj) {
+    if ($roleObj->hasPermission('administer site configuration')) {
+      $roleObj->grantPermission('configure audit files reports');
+      $roleObj->grantPermission('access audit files reports');
+      $roleObj->grantPermission('access administration pages');
+      $roleObj->grantPermission('access site reports');
+      $roleObj->save();
+    }
+  }
+}

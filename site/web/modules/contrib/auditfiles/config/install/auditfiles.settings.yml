@@ -1,0 +1,10 @@
+auditfiles_file_system_path: 'public'
+auditfiles_exclude_files: .htaccess
+auditfiles_exclude_extensions: ''
+auditfiles_exclude_paths: color;css;ctools;js
+auditfiles_include_domains: ''
+auditfiles_report_options_items_per_page: 50
+auditfiles_report_options_maximum_records: 250
+auditfiles_report_options_batch_size: 1000
+auditfiles_report_options_date_format: ''
+

@@ -1,0 +1,13 @@
+name: URL Redirect
+type: module
+description: Redirect User / Role for specific menu item.
+package: Other
+core_version_requirement: ^8.8 || ^9 || ^10
+configure: entity.url_redirect.collection
+dependencies:
+  - drupal:path
+
+# Information added by Drupal.org packaging script on 2023-01-23
+version: '8.x-3.0'
+project: 'url_redirect'
+datestamp: 1674435457

@@ -1,0 +1,15 @@
+# Plugin \Drupal\editor_advanced_link\Plugin\CKEditor5Plugin\AdvancedLink
+ckeditor5.plugin.editor_advanced_link_link:
+  type: mapping
+  label: 'Advanced Link'
+  mapping:
+    enabled_attributes:
+      type: sequence
+      orderby: value
+      label: 'Enabled attributes'
+      sequence:
+        type: string
+        label: 'Enabled attribute'
+        constraints:
+          Choice:
+            callback: \Drupal\editor_advanced_link\Plugin\CKEditor5Plugin\AdvancedLink::validChoices

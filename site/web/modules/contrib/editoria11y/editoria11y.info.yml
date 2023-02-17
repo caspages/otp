@@ -1,0 +1,14 @@
+name: Editoria11y
+description: Checks for accessibility in page content.
+type: module
+core: 8.x
+core_version_requirement: ^8 || ^9
+configure: editoria11y.settings
+dependencies:
+  - drupal:user
+package: 'User interface'
+
+# Information added by Drupal.org packaging script on 2022-04-29
+version: '1.0.14'
+project: 'editoria11y'
+datestamp: 1651258766

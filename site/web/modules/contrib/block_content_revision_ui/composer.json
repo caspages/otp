@@ -1,0 +1,9 @@
+{
+    "name": "drupal/block_content_revision_ui",
+    "description": "Adds Revision UI to Block Content entities.",
+    "type": "drupal-module",
+    "require": {
+        "php": ">=7.1",
+        "drupal/core": "^8.8 || ^9 || ^10"
+    }
+}

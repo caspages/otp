@@ -6,6 +6,7 @@ use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityRepositoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Path\PathMatcherInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\Core\Routing\RequestContext;
 use Drupal\Core\Session\AccountInterface;
@@ -34,16 +35,34 @@ class EntityResource extends \Drupal\jsonapi\Controller\EntityResource {
    */
   private $requestContext;
 
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $field_manager, ResourceTypeRepositoryInterface $resource_type_repository, RendererInterface $renderer, EntityRepositoryInterface $entity_repository, IncludeResolver $include_resolver, EntityAccessChecker $entity_access_checker, FieldResolver $field_resolver, SerializerInterface $serializer, TimeInterface $time, AccountInterface $user, RequestContext $requestContext, array $size_max) {
+  /**
+   * The path matcher service, for comparing paths.
+   *
+   * @var \Drupal\Core\Path\PathMatcherInterface
+   */
+  private $pathMatcher;
+
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, EntityFieldManagerInterface $field_manager, ResourceTypeRepositoryInterface $resource_type_repository, RendererInterface $renderer, EntityRepositoryInterface $entity_repository, IncludeResolver $include_resolver, EntityAccessChecker $entity_access_checker, FieldResolver $field_resolver, SerializerInterface $serializer, TimeInterface $time, AccountInterface $user, RequestContext $request_context, PathMatcherInterface $path_matcher, array $size_max) {
     parent::__construct($entity_type_manager, $field_manager, $resource_type_repository, $renderer, $entity_repository, $include_resolver, $entity_access_checker, $field_resolver, $serializer, $time, $user);
     $this->sizeMax = $size_max;
-    $this->requestContext = $requestContext;
+    $this->requestContext = $request_context;
+    $this->pathMatcher = $path_matcher;
   }
 
+  /**
+   * {@inheritdoc}
+   */
   protected function getJsonApiParams(Request $request, ResourceType $resource_type) {
     $params = parent::getJsonApiParams($request, $resource_type);
-    if ($request->query->has('page')) {
-      $params[OffsetPage::KEY_NAME] = new OffsetPage(OffsetPage::DEFAULT_OFFSET, $this->getMax($request->query->get('page')));
+    $page_params = $request->query->get(OffsetPage::KEY_NAME);
+
+    // Only handle requests where a ?page[limit] has been specified.
+    if (is_array($page_params) && isset($page_params[OffsetPage::SIZE_KEY])) {
+      $offset = $page_params[OffsetPage::OFFSET_KEY] ?? OffsetPage::DEFAULT_OFFSET;
+      $params[OffsetPage::KEY_NAME] = new OffsetPage(
+        $offset,
+        $this->getMax($page_params)
+      );
     }
     return $params;
   }
@@ -51,14 +70,19 @@ class EntityResource extends \Drupal\jsonapi\Controller\EntityResource {
   /**
    * Lookup max item count by path, and fallback to 50 if not customized.
    *
-   * @param $page
-   *   The number of items the querystring.
+   * @param array $page_params
+   *   The page parameters from the url query.
    *
    * @return int
    *   Max number of items.
    */
-  private function getMax($page) {
+  private function getMax(array $page_params) {
     $path = $this->requestContext->getPathInfo();
-    return isset($this->sizeMax[$path]) ? min($page['limit'], $this->sizeMax[$path]) : OffsetPage::SIZE_MAX;
+    $matches = array_filter($this->sizeMax, function($key) use ($path) {
+      return $this->pathMatcher->matchPath($path, $key);
+    }, ARRAY_FILTER_USE_KEY);
+    // In case of multiple matches, use the first match.
+    $size_max = reset($matches) ?? OffsetPage::SIZE_MAX;
+    return min($page_params['limit'], $size_max);
   }
 }

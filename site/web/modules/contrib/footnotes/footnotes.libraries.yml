@@ -1,0 +1,5 @@
+footnotes:
+  version: VERSION
+  css:
+    component:
+      assets/css/footnotes.css: {}

@@ -1,0 +1,28 @@
+eu_cookie_compliance:
+  title: 'EU Cookie Compliance'
+  parent: system.admin_config_system
+  description: 'Make your website compliant with the EU Directive on Privacy and Electronic Communications.'
+  route_name: eu_cookie_compliance
+  weight: -20
+eu_cookie_compliance.settings:
+  title: 'Settings'
+  parent: eu_cookie_compliance
+  description: 'Configure the cookie consent popup.'
+  route_name: eu_cookie_compliance.settings
+  weight: -20
+entity.cookie_category.collection:
+  title: 'Categories'
+  route_name: entity.cookie_category.collection
+  description: 'Administer cookie categories.'
+  parent: eu_cookie_compliance
+  weight: 99
+eu_cookie_compliance.toggle_cookie_settings_withdraw:
+  title: "Cookie settings"
+  description: "Toggle the cookie consent settings tray"
+  url: "internal:#sliding-popup"
+  menu_name: tools
+  options:
+    attributes:
+      onclick: "if (Drupal.eu_cookie_compliance) { Drupal.eu_cookie_compliance.toggleWithdrawBanner(); } return false;"
+      class:
+        - eu-cookie-compliance-toggle-withdraw-banner

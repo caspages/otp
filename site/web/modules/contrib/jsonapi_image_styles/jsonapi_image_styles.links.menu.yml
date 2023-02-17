@@ -1,0 +1,5 @@
+jsonapi_image_styles.settings:
+  title: 'JSON:API Image Styles'
+  parent: system.admin_config_services
+  description: 'Configure image styles to expose for JSON:API'
+  route_name: jsonapi_image_styles.settings

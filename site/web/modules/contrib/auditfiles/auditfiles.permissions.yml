@@ -1,0 +1,8 @@
+configure audit files reports:
+  title: 'Configure Audit Files module'
+  description: 'Configure the Audit Files module settings.'
+  restrict access: TRUE
+
+access audit files reports:
+  title: 'Access Audit Files reports'
+  description: 'Allows users to access the Audit Files reports.'

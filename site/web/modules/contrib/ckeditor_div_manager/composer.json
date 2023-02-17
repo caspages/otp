@@ -1,0 +1,18 @@
+{
+  "name": "drupal/ckeditor_div_manager",
+  "description": "Adds the Div Container Manager plugin to CKEditor.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/ckeditor_div_manager",
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Corey Eiseman",
+      "homepage": "https://www.drupal.org/u/toegristle",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/ckeditor_div_manager",
+    "source": "https://cgit.drupalcode.org/ckeditor_div_manager"
+  }
+}

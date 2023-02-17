@@ -1,0 +1,14 @@
+.ui-autocomplete-input {
+  background-image: url(../images/throbber-inactive.png);
+  background-repeat: no-repeat;
+  background-position: 100% center;
+  .ui-menu-item {
+    font-size: 0.95em;
+  }
+  &.ui-autocomplete-loading {
+    background-image: url(../images/throbber-active.gif);
+    background-position: 100% center; /* LTR */
+  }
+}
+
+

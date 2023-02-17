@@ -1,0 +1,33 @@
+# Schema for the configuration files of the Audit Files module.
+
+auditfiles.settings:
+  type: config_object
+  label: 'Audit Files'
+  mapping:  
+    auditfiles_file_system_path:
+      type: string
+      label: 'File system path'
+    auditfiles_exclude_files:
+      type: string
+      label: 'Exclude these files'
+    auditfiles_exclude_extensions: 
+      type: string
+      label: 'Exclude these extensions'
+    auditfiles_exclude_paths: 
+      type: string
+      label: 'Exclude these paths'
+    auditfiles_include_domains:
+      type: string
+      label: 'Include references to these domains'
+    auditfiles_report_options_date_format:
+      type: string
+      label: 'Date format'
+    auditfiles_report_options_items_per_page:
+      type: integer
+      label: 'Number of items per page'
+    auditfiles_report_options_maximum_records:
+      type: integer
+      label: 'Maximum records'
+    auditfiles_report_options_batch_size:
+      type: integer
+      label: 'Batch size'

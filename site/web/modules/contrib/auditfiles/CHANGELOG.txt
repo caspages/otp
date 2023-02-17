@@ -1,0 +1,73 @@
+8.x-2.11
+
+Issue #3154095 by lhridley: Upgrade path from Version 8.x-1.x to 8.x-2.x
+Issue #3160596 by lhridley: Automated Test:  AuditFilesConfig functionality
+Issue #3157995 by lhridley, LpSolit, TR: Parameters set to 0 (no limit) are not saved
+Issue #3157812 by lhridley, LpSolit: Path is always assumed to be the default one, causing dataloss
+Issue #3154446 by lhridley: Automated test:  AuditFilesNotInDatabase Report
+Issue #3158966 by lhridley: Backporting bug fixes and test suite from 8.x-3.x to 8.x-2.x
+Issue #3154441 by lhridley: Add Automated Tests to project
+Issue #3155727 by lhridley: Automated test:  AuditFilesReferencedNotUsed Report
+
+8.x-2.9, 8.x-2.10 (both are currently unpublished)
+
+Issue #3154441: Add Automated Tests to project
+Issue #3155728 by lhridley: Automated test:  AuditFilesUsedNotReferenced Report
+Issue #3155265 by pradeepjha, markus_petrux: ParseError: syntax error, unexpected ')' in Composer\Autoload\includeFile() (line 40 of .../AuditFilesConfig.php)
+Issue #3154454 by lhridley: Automated test:  AuditFilesUsedNotManaged Report
+Issue #3154451 by lhridley: Automated test:  AuditFilesManagedNotUsed Report
+Issue #3155725 by lhridley: Coding Standards corrections
+Issue #3154448 by lhridley: Automated test:  AuditFilesNotOnServer Report
+
+8.x-2.8
+
+Issue #3154446 by lhridley: Automated test:  AuditFilesNotInDatabase Report
+Issue #3155170 by lhridley: Exception: Error: Call to undefined method Drupal\auditfiles\ServiceAuditFilesNotInDatabase::entityTypeManager()
+
+8.x-2.7
+
+Issue #3155136 by lhridley: Convert all services to Dependency Injection
+Issue #3154713 by lhridley: ServiceAuditFilesNotInDatabase:  Use DI for all services
+Issue #3051823 by lhridley: Audit Files should specify its own access permissions (additional permissions patch)
+Issue #3154177 by lhridley: ServiceNotFoundException:  The service "auditfiles.referenced_not_used has a dependency on a non-existent service "file.usage"
+Issue #3154147 by lhridley: Error:  Typecast error occurring in AuditFilesConfig.php
+Issue #3154135 by lhridley: Syntax error in auditfiles.services.yml
+Issue #3090003 by dealancer, mrinalini9, lhridley: Not in database report does not work
+Issue #3154111 by lhridley: Update README.txt for new maintainer listing
+Issue #3154049 by lhridley: Drupal 9 Coding Standards Refactoring
+Issue #3092517 by lhridley: Issue with the NotOnServer $query->range
+Issue #3051823 by lhridley, bgodin95: Audit Files should specify its own access permissions
+
+8.x-2.6
+
+Issue #3154305 by lhridley: Undefined variable:  field_data
+
+8.x-2.5
+
+Issue #3154286: Mismatched services to constructor argumentsanenko, lhridley: D9 Deprecated Code Report
+
+8.x-2.3
+
+Issue #3153839 by lhridley: Implement CHANGELOG.txt for 8.x-2.x
+Issue #2998775 by volkswagenchick, alonaoneill, keshav.k: README.txt does not follow best practice
+Issue #2997092 by deepakkumar14, keshav.k: Remove Dependency injection of stream_wrapper_manager
+Issue #2997088 by deepakkumar14: Remove dependency injection of date.formatter service
+Issue #2996412 by deepakkumar14: Remove dependency injection of config, database connection and entityFileManager from all files
+Issue #2996338 by deepakkumar14, keshav.k: Remove dependencies injection of DatabaseConnection , configuration and entityfieldmanager
+Issue #2995456 by keshav.k, vandna b: \Drupal::config() calls should be avoided in classes use dependency injection
+Issue #2994545 by keshav.k, vandna b, Vidushi Mehta: \Drupal calls should be avoided in classes, use dependency injection instead
+Issue #2991570 by Vidushi Mehta, brahmjeet789, keshav.k: Hook help is missing
+
+8.x-2.2
+
+Issue #2991519 by jlscott: Incorrect configuration settings name
+General code cleanup
+
+8.x-1.1
+
+fix table not found issue
+Issue #2990360 by keshav.k: PHP Fatal error: Cannot use Drupal\Component\Utility\String as String because 'String' is a special class name in ./src/Form/AuditFilesConfig.php on line 7 Errors parsing ./src/Form/AuditFilesConfig.php
+55ec7c5 fix coding indentation
+Issue #2989420 by karuna patel, keshav.k, vandna b: README.txt does not follow best practices
+Issue #2989426 by vandna b: [D8] Fix all coding issues listed here
+initial commit

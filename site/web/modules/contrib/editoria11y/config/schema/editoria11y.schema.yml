@@ -1,0 +1,34 @@
+Editoria11y.settings:
+  type: config_object
+  label: 'Editoria11y Settings'
+  mapping:
+    content_root:
+      type: string
+      label: 'Check elements in these containers'
+    assertiveness:
+      type: string
+      label: 'Alert panel assertiveness'
+    no_load:
+      type: string
+      label: 'Do not run if these elements are on the page'
+    ignore_containers:
+      type: string
+      label: 'Do not run tests on these containers'
+    ignore_for_outline:
+      type: string
+      label: 'Exclude these headers from the page outline'
+    embedded_content_warning:
+      type: string
+      label: 'Full check should warn on these elements with embedded uncheckable content.'
+    allow_overflow:
+      type: string
+      label: 'These containers are overridden to overflow:visible when tip is open'
+    download_links:
+      type: string
+      label: 'These links download a document or image and need a manual review'
+    ignore_link_strings:
+      type: string
+      label: 'Remove these strings from link text before checking for bad link text'
+    hidden_handlers:
+      type: string
+      label: 'Hidden elements in these containers will be revealed by theme JS on request via a dispatched event'

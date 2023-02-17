@@ -1,0 +1,10 @@
+name: Date Popup
+type: module
+description: Provides a HTML 5 date popup for all views filters.
+core_version_requirement: ^8 || ^9 || ^10
+package: Date
+
+# Information added by Drupal.org packaging script on 2022-11-18
+version: '8.x-1.3'
+project: 'date_popup'
+datestamp: 1668746956

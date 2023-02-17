@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * @file
+ * Block Content Revision UI install and update hooks.
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
+/**
+ * Adds new default values to block_content_revision_ui.settings.
+ */
+function block_content_revision_ui_update_9001(&$sandbox): TranslatableMarkup {
+  \Drupal::configFactory()
+    ->getEditable('block_content_revision_ui.settings')
+    ->set('allow_revert_current_revision', FALSE)
+    ->save();
+  return new TranslatableMarkup('Added default values for block_content_revision_ui.settings:allow_revert_current_revision');
+}

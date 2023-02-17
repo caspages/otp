@@ -1,0 +1,61 @@
+auditfiles.report_auditfiles:
+  title: 'Audit Files'
+  parent: system.admin_reports
+  description: 'Allows for comparing and correcting files and file references in the "files" directory, in the database, and in content.'
+  route_name: auditfiles.report_auditfiles
+  weight: -1
+
+auditfiles.report_notindatabase:
+  title: 'Not in database'
+  parent: auditfiles.report_auditfiles
+  description: 'Allows for comparing and correcting files and file references in the "files" directory, in the database, and in content.'
+  route_name: auditfiles.notindatabase
+  weight: 1
+
+auditfiles.report_audit_files_notonserver:
+  title: 'Not on server'
+  parent: auditfiles.report_auditfiles
+  description: 'Lists files that are in the database, but not in the "files" directory.'
+  route_name: auditfiles.audit_files_notonserver
+  weight: 2
+
+auditfiles.report_audit_files_managednotused:
+  title: 'Managed not used'
+  parent: auditfiles.report_auditfiles
+  description: 'Lists files that are in the file_managed table, but not in the file_usage table.'
+  route_name: auditfiles.audit_files_managednotused
+  weight: 3
+
+auditfiles.report_audit_files_usednotmanaged:
+  title: 'Used not managed'
+  parent: auditfiles.report_auditfiles
+  description: 'Lists files that are in the file_usage table, but not in the file_managed table.'
+  route_name: auditfiles.audit_files_usednotmanaged
+  weight: 4
+
+auditfiles.report_audit_files_usednotreferenced:
+  title: 'Used not referenced'
+  parent: auditfiles.report_auditfiles
+  description: 'List files that are in the file_usage table, but not referenced in content.'
+  route_name: auditfiles.audit_files_usednotreferenced
+  weight: 5
+
+auditfiles.report_audit_files_referencednotused:
+  title: 'Referenced not used'
+  parent: auditfiles.report_auditfiles
+  description: 'List files referenced in content, but not in the file_usage table.'
+  route_name: auditfiles.audit_files_referencednotused
+  weight: 6
+
+auditfiles.report_audit_files_mergefilereferences:
+  title: 'Merge file references'
+  parent: auditfiles.report_auditfiles
+  description: 'Lists potential duplicate files in the file_managed table, and allows for merging them into a single file.'
+  route_name: auditfiles.audit_files_mergefilereferences
+  weight: 7
+
+auditfiles.auditfiles_configuration:
+  title: 'Audit Files'
+  parent: system.admin_config_system
+  description: 'Allows for comparing and correcting files and file references in the "files" directory, in the database, and in content.'
+  route_name: auditfiles.auditfiles_configuration

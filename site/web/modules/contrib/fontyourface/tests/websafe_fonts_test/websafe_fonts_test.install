@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Websafe Fonts Test install file.
+ */
+
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_install().
+ */
+function websafe_fonts_test_install() {
+  module_set_weight('websafe_fonts_test', 10);
+  $url = Url::fromRoute('font.settings');
+  Drupal::messenger()->addMessage(t('Websafe Fonts Test needs to be set up in order for fonts to be imported. Please use @link to import Websafe Fonts Test fonts.', ['@link' => Link::fromTextAndUrl('@font-your-face settings', $url)->toString()]));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function websafe_fonts_test_uninstall() {
+  fontyourface_delete('websafe_fonts_test');
+}

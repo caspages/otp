@@ -1,0 +1,9 @@
+{
+  "name": "eu_cookie_compliance",
+  "scripts": {
+    "uglify": "uglifyjs js/eu_cookie_compliance.js -c -m --output js/eu_cookie_compliance.min.js"
+  },
+  "dependencies": {
+    "uglify-js": "^3.17.0"
+  }
+}

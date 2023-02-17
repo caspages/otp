@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Contains install and update functions for Image Resize Filter module.
+ */
+
+
+ /**
+  * Install default config.
+  */
+ function image_resize_filter_update_8001() {
+   \Drupal::service('config.installer')
+     ->installDefaultConfig('module', 'image_resize_filter');
+ }

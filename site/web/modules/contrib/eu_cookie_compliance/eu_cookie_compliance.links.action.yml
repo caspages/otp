@@ -1,0 +1,5 @@
+entity.cookie_category.add_form:
+  route_name: entity.cookie_category.add_form
+  title: 'Add Cookie category'
+  appears_on:
+    - entity.cookie_category.collection

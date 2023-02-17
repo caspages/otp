@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Implements hook_update_N().
+ *
+ * To create an entity from table and drop table.
+ */
+
+use Drupal\url_redirect\Entity\UrlRedirect;
+use Drupal\Component\Serialization\Json;
+
+/**
+ * Set the user value to be anonymous user if the field was left empty.
+ */
+function url_redirect_update_8101() {
+  $redirects = \Drupal::entityTypeManager()
+    ->getStorage('url_redirect')
+    ->getQuery()
+    ->notExists('user')
+    ->execute();
+  if ($redirects) {
+    foreach ($redirects as $redirect) {
+      $entity = \Drupal::entityTypeManager()
+        ->getStorage('url_redirect')
+        ->load($redirect);
+      $entity->set('user', [['target_id' => '0']]);
+      $entity->save();
+    }
+  }
+}
+
+/**
+ * Add negate key to url_redirect entity.
+ */
+function url_redirect_update_8102() {
+  $manager = \Drupal::entityDefinitionUpdateManager();
+  $entity_type = $manager->getEntityType('url_redirect');
+  $entity_keys = $entity_type->getKeys();
+  $entity_keys['negate'] = 'negate';
+  $entity_type->set('entity_keys', $entity_keys);
+  $manager->updateEntityType($entity_type);
+}
+
+/**
+ * Migrate old redirect data.
+ */
+function url_redirect_update_8103() {
+  $db_connection = \Drupal::database();
+  if ($db_connection->schema()->tableExists('url_redirect')) {
+    $query = $db_connection->select('url_redirect', 'ur');
+    $query->fields('ur');
+    $all_data = $query->execute()->fetchAll();
+    foreach ($all_data as $key => $data) {
+      $values = [
+        'label' => 'Migrated Redirect',
+        'id' => 'migrated_' . $key . '_' . time(),
+        'path' => $data->path,
+        'redirect_path' => $data->redirect_path,
+        'roles' => Json::decode($data->roles),
+        'users' => Json::decode($data->users),
+        'status' => $data->status,
+        'message' => $data->message,
+        'redirect_for' => $data->check_for,
+      ];
+      $url_redirect_entity = UrlRedirect::create($values);
+      $url_redirect_entity->save();
+    }
+    // We can drop 'url_redirect' table once we confirm everything
+    // is migrated properly.
+    $db_connection->schema()->dropTable('url_redirect');
+  }
+}

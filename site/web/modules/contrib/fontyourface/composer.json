@@ -1,0 +1,23 @@
+{
+  "name": "drupal/fontyourface",
+  "type": "drupal-module",
+  "description": "Web font management tools.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/fontyourface",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Neslee Canil Pinto",
+      "homepage": "https://www.drupal.org/u/neslee-canil-pinto",
+      "role": "Maintainer"
+     }
+  ],
+  "support": {
+    "issues": "https://drupal.org/project/issues/fontyourface",
+    "source": "https://git.drupalcode.org/project/fontyourface"
+  },
+  "require": {
+    "drupal/core": "^8 || ^9"
+  }
+}

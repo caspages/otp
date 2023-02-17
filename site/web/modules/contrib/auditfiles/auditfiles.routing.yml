@@ -1,0 +1,71 @@
+auditfiles.notindatabase:
+  path: '/admin/reports/auditfiles/notindatabase'
+  defaults:
+    _form: '\Drupal\auditfiles\Form\AuditFilesNotInDatabase'
+    _title: 'Not in database'
+  requirements:
+    _permission: 'access audit files reports'
+
+auditfiles.auditfiles_configuration:
+  path: '/admin/config/system/auditfiles_config'
+  defaults:
+    _form: '\Drupal\auditfiles\Form\AuditFilesConfig'
+    _title: 'Audit Files'
+  requirements:
+    _permission: 'configure audit files reports'
+
+auditfiles.audit_files_notonserver:
+  path: 'admin/reports/auditfiles/notonserver'
+  defaults:
+    _form: '\Drupal\auditfiles\Form\AuditFilesNotOnServer'
+    _title: 'Not on server'
+  requirements:
+    _permission: 'access audit files reports'
+
+auditfiles.audit_files_managednotused:
+  path: 'admin/reports/auditfiles/managednotused'
+  defaults:
+    _form: '\Drupal\auditfiles\Form\AuditFilesManagedNotUsed'
+    _title: 'Managed not used'
+  requirements:
+    _permission: 'access audit files reports'
+
+auditfiles.audit_files_usednotmanaged:
+  path: 'admin/reports/auditfiles/usednotmanaged'
+  defaults:
+    _form: '\Drupal\auditfiles\Form\AuditFilesUsedNotManaged'
+    _title: 'Used not managed'
+  requirements:
+    _permission: 'access audit files reports'
+
+auditfiles.audit_files_usednotreferenced:
+  path: 'admin/reports/auditfiles/usednotreferenced'
+  defaults:
+    _form: '\Drupal\auditfiles\Form\AuditFilesUsedNotReferenced'
+    _title: 'Used not referenced'
+  requirements:
+    _permission: 'access audit files reports'
+
+auditfiles.audit_files_referencednotused:
+  path: 'admin/reports/auditfiles/referencednotused'
+  defaults:
+    _form: '\Drupal\auditfiles\Form\AuditFilesReferencedNotUsed'
+    _title: 'Referenced not used'
+  requirements:
+    _permission: 'access audit files reports'
+
+auditfiles.audit_files_mergefilereferences:
+  path: 'admin/reports/auditfiles/mergefilereferences'
+  defaults:
+    _form: '\Drupal\auditfiles\Form\AuditFilesMergeFileReferences'
+    _title: 'Merge file references'
+  requirements:
+    _permission: 'access audit files reports'
+
+auditfiles.report_auditfiles:
+  path: 'admin/reports/auditfiles'
+  defaults:
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+    _title: 'Audit Files'
+  requirements:
+    _permission: 'access audit files reports'

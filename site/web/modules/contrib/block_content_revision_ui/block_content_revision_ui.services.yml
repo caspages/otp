@@ -1,0 +1,5 @@
+services:
+  block_content_revision_ui.event_subscriber:
+    class: Drupal\block_content_revision_ui\EventSubscriber\BlockContentRevisionUiSubscriber
+    tags:
+      - { name: event_subscriber }

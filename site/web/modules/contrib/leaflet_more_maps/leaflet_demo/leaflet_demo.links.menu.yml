@@ -1,0 +1,6 @@
+leaflet_demo.demo_page:
+  title: 'Leaflet maps showcase'
+  description: 'A taste of all available maps on a single page.'
+  route_name: leaflet_demo.demo_page
+  weight: 16
+  parent: system.admin_config_system

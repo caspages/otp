@@ -1,0 +1,7 @@
+block_content_revision_ui.settings:
+  path: '/admin/config/user-interface/block-content-revision-ui/settings'
+  defaults:
+    _form: '\Drupal\block_content_revision_ui\Form\BlockContentRevisionUiSettingsForm'
+    _title: 'Block Content Revision UI settings'
+  requirements:
+    _permission: 'administer block_content_revision_ui'

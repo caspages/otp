@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * @file
+ * Contains jsonapi_image_styles.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Field\FieldStorageDefinitionInterface;
+
+/**
+ * Implements hook_help().
+ */
+function jsonapi_image_styles_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the jsonapi_image_styles module.
+    case 'help.page.jsonapi_image_styles':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Expose image styles to JSON:API') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_base_field_info().
+ */
+function jsonapi_image_styles_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+  $base_table = $entity_type->getBaseTable();
+
+  // Certain classes are just not supported.
+  $original_class = $entity_type->getOriginalClass();
+
+  if (!empty($base_table) && $original_class == 'Drupal\file\Entity\File') {
+    $fields['image_style_uri'] = BaseFieldDefinition::create('image_style_uri')
+      ->setLabel(t('Entity image styles'))
+      ->setDescription(t('Image styles of the file entity'))
+      ->setComputed(TRUE)
+      ->setCardinality(FieldStorageDefinitionInterface::CARDINALITY_UNLIMITED)
+      ->setTranslatable(TRUE);
+  }
+
+  return $fields;
+}

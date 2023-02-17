@@ -1,0 +1,10 @@
+/**
+ * @file
+ * Visual styles for Corporate+'s grid 2.
+ */
+.view-showcases-grid-2 .views-row {
+  margin: 0 0 15px;
+}
+.view-showcases-grid-2.view > .more-link a {
+  margin: 10px 0; 
+}

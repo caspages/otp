@@ -1,0 +1,13 @@
+include:
+  # Once composer-plugin or equivalent is on drupalcode.org, we can use regular include: syntax
+  # Best practice is to pin to a tag or a SHA1. https://docs.gitlab.com/ee/ci/yaml/#includefile
+  remote: 'https://gitlab.com/drupalspoons/composer-plugin/-/raw/2.2.0/templates/.gitlab-ci.yml'
+
+variables:
+  # https://getcomposer.org/doc/articles/versions.md#next-significant-release-operators
+  DRUPAL_CORE_CONSTRAINT: ~8.9
+
+#
+# Below, projects may override anything in the template above.
+#
+

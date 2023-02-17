@@ -1,0 +1,13 @@
+{
+    "name": "drupal/jsonapi_page_limit",
+    "description": "Change the maximum number of items in a response for a given route",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Moshe Weitzman",
+            "email": "weitzman@tejasa.com"
+        }
+    ],
+    "require": {}
+}

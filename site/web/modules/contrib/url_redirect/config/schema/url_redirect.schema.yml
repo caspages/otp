@@ -1,0 +1,40 @@
+url_redirect.url_redirect.*:
+  type: config_entity
+  label: 'URL Redirect'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    message:
+      type: string
+      label: 'Message'
+    status:
+      type: string
+      label: 'Status'
+    path:
+      type: string
+      label: 'Path'
+    redirect_path:
+      type: string
+      label: 'Redirect Path'
+    redirect_for:
+      type: string
+      label: 'Checked For'
+    negate:
+      type: boolean
+      label: 'Negate'
+    user:
+      type: sequence
+      label: 'Users'
+      sequence:
+        type: 'user.[%key]'
+    roles:
+      type: sequence
+      label: 'Roles'
+      sequence:
+        type: 'roles.[%key]'

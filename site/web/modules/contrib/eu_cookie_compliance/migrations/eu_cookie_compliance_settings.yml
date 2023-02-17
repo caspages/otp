@@ -1,0 +1,75 @@
+id: eu_cookie_compliance_settings
+label: Cookie compliance configuration
+migration_tags:
+  - Drupal 7
+  - Configuration
+source:
+  plugin: eu_cookie_compliance_settings
+process:
+  cookie_lifetime:
+    plugin: default_value
+    default_value: 100
+    source: eu_cookie_compliance_cookie_lifetime
+  domain: eu_cookie_compliance_domain
+  domain_all_sites:
+    plugin: default_value
+    default_value: 0
+    source: eu_cookie_compliance_domain_all_sites
+  popup_enabled: 'eu_cookie_compliance/popup_enabled'
+  method: 'eu_cookie_compliance/method'
+  popup_info_template: 'eu_cookie_compliance/info_template'
+  enable_save_preferences_button: 'eu_cookie_compliance/enable_save_preferences_button'
+  save_preferences_button_label: 'eu_cookie_compliance/save_preferences_button_label'
+  accept_all_categories_button_label: 'eu_cookie_compliance/accept_all_categories_button_label'
+  disabled_javascripts: 'eu_cookie_compliance/disabled_javascripts'
+  automatic_cookies_removal: 'eu_cookie_compliance/automatic_cookies_removal'
+  allowed_cookies: 'eu_cookie_compliance/allowed_cookies'
+  popup_info: 'eu_cookie_compliance/popup_info'
+  use_mobile_message: 'eu_cookie_compliance/use_mobile_message'
+  mobile_popup_info: 'eu_cookie_compliance/mobile_popup_info'
+  mobile_breakpoint: 'eu_cookie_compliance/mobile_breakpoint'
+  popup_more_info_button_message: 'eu_cookie_compliance/popup_disagree_button_message'
+  disagree_button_label: 'eu_cookie_compliance/disagree_button_label'
+  withdraw_enabled: 'eu_cookie_compliance/withdraw_enabled'
+  withdraw_button_on_info_popup: 'eu_cookie_compliance/withdraw_button_on_info_popup'
+  withdraw_message: 'eu_cookie_compliance/withdraw_message'
+  withdraw_tab_button_label: 'eu_cookie_compliance/withdraw_tab_button_label'
+  withdraw_action_button_label: 'eu_cookie_compliance/withdraw_action_button_label'
+  popup_agreed_enabled: 'eu_cookie_compliance/popup_agreed_enabled'
+  popup_hide_agreed: 'eu_cookie_compliance/popup_hide_agreed'
+  popup_agreed: 'eu_cookie_compliance/popup_agreed'
+  popup_find_more_button_message: 'eu_cookie_compliance/popup_find_more_button_message'
+  popup_hide_button_message: 'eu_cookie_compliance/popup_hide_button_message'
+  popup_link: 'eu_cookie_compliance/popup_link'
+  popup_link_new_window: 'eu_cookie_compliance/popup_link_new_window'
+  cookie_policy_version: 'eu_cookie_compliance/cookie_policy_version'
+  containing_element: 'eu_cookie_compliance/containing_element'
+  popup_position: 'eu_cookie_compliance/popup_position'
+  use_bare_css: 'eu_cookie_compliance/use_bare_css'
+  use_olivero_css: 'eu_cookie_compliance/use_olivero_css'
+  popup_text_hex: 'eu_cookie_compliance/popup_text_hex'
+  popup_bg_hex: 'eu_cookie_compliance/popup_bg_hex'
+  popup_height: 'eu_cookie_compliance/popup_height'
+  popup_width: 'eu_cookie_compliance/popup_width'
+  fixed_top_position: 'eu_cookie_compliance/fixed_top_position'
+  popup_delay: 'eu_cookie_compliance/popup_delay'
+  disagree_do_not_show_popup: 'eu_cookie_compliance/disagree_do_not_show_popup'
+  reload_page: 'eu_cookie_compliance/reload_page'
+  popup_scrolling_confirmation: 'eu_cookie_compliance/popup_scrolling_confirmation'
+  cookie_name: 'eu_cookie_compliance/cookie_name'
+  cookie_value_disagreed: 'eu_cookie_compliance/cookie_value_disagreed'
+  cookie_value_agreed_show_thank_you: 'eu_cookie_compliance/cookie_value_agreed_show_thank_you'
+  cookie_value_agreed: 'eu_cookie_compliance/cookie_value_agreed'
+  domains_option: 'eu_cookie_compliance/domains_option'
+  domains_list: 'eu_cookie_compliance/domains_list'
+  consent_storage_method: 'eu_cookie_compliance/consent_storage_method'
+  exclude_paths:
+    plugin: eu_cookie_compliance_exclude_paths
+    source: 'eu_cookie_compliance/exclude_paths'
+  exclude_admin_theme: 'eu_cookie_compliance/exclude_admin_pages'
+  exclude_uid_1: 'eu_cookie_compliance/exclude_uid_1'
+  better_support_for_screen_readers: 'eu_cookie_compliance/better_support_for_screen_readers'
+  cookie_session: 'eu_cookie_compliance/cookie_session'
+destination:
+  plugin: config
+  config_name: eu_cookie_compliance.settings
