@@ -1,9 +1,0 @@
-eu_cookie_compliance.settings_tab:
-  route_name: eu_cookie_compliance.settings
-  title: Settings
-  base_route: eu_cookie_compliance.settings
-
-eu_cookie_compliance.settings_tab.categories:
-  route_name: entity.cookie_category.collection
-  title: Categories
-  base_route: eu_cookie_compliance.settings

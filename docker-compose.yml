@@ -10,6 +10,10 @@ services:
       - ./site:/opt/drupal
     ports:
       - 8080:80
+    #environment:
+    #  COMPOSER_PROCESS_TIMEOUT: 3000
+    #command: composer install
+    #tty: true
 
   db:
     image: mysql:5.7
