@@ -1,9 +1,0 @@
-jsonapi_image_styles.settings:
-  path: /admin/config/services/jsonapi/image_styles
-  defaults:
-    _form: \Drupal\jsonapi_image_styles\Form\JsonApiImageStylesAdminForm
-    _title: 'JSON:API Image Styles'
-  requirements:
-    _permission: 'Administer image styles'
-  options:
-    _admin_route: TRUE
