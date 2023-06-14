@@ -10,9 +10,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 ENV COMPOSER_MEMORY_LIMIT -1
 # Set timeout
 ENV COMPOSER_PROCESS_TIMEOUT 3000
-# Build up Drupal
-RUN composer install --ignore-platform-reqs --no-scripts
- 
+
 # Change Apache document root
 ENV APACHE_DOCUMENT_ROOT=/opt/drupal/web
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf

@@ -10,10 +10,17 @@ services:
       - ./site:/opt/drupal
     ports:
       - 8080:80
-    #environment:
-    #  COMPOSER_PROCESS_TIMEOUT: 3000
-    #command: composer install
-    #tty: true
+
+  composer:
+    restart: 'no'
+    image: composer:latest
+    user: root
+    command: install --ignore-platform-reqs
+    environment:
+      COMPOSER_MEMORY_LIMIT: -1
+      COMPOSER_PROCESS_TIMEOUT: 3000
+    volumes:
+      - ./site:/app
 
   db:
     image: mysql:5.7
