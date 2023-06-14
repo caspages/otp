@@ -1,6 +1,0 @@
-# IDE/sysem paths.
-.idea
-
-# Vendor paths.
-composer.lock
-vendor

@@ -1,5 +1,0 @@
-# Schema for the configuration files of the Corporate Lite theme.
-
-corporate_lite.settings:
-  type: theme_settings
-  label: 'Corporate Lite settings'
