@@ -31,6 +31,7 @@ services:
       MYSQL_ROOT_PASSWORD: "dsf2DhjDFcvWqft"
     ports:
       - 3352:3306
+    user: mysql
     command: mysqld --max_allowed_packet=32M --lower_case_table_names=1
     volumes:
       - ./database:/var/lib/mysql
