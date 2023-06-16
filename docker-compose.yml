@@ -15,10 +15,10 @@ services:
     restart: 'no'
     image: composer:latest
     user: root
-    command: install --ignore-platform-reqs
+    command: composer install --ignore-platform-reqs
     environment:
-      COMPOSER_MEMORY_LIMIT: -1
-      COMPOSER_PROCESS_TIMEOUT: 3000
+      COMPOSER_MEMORY_LIMIT: "-1"
+      COMPOSER_PROCESS_TIMEOUT: "3000"
     volumes:
       - ./site:/app
 
@@ -31,7 +31,7 @@ services:
       MYSQL_ROOT_PASSWORD: "dsf2DhjDFcvWqft"
     ports:
       - 3352:3306
-    user: mysql
+    user: 1000:50
     command: mysqld --max_allowed_packet=32M --lower_case_table_names=1
     volumes:
       - ./database:/var/lib/mysql
