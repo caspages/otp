@@ -23,14 +23,18 @@ class LeafletMapTimelineBlock extends BlockBase implements BlockPluginInterface 
    * {@inheritdoc}
    */
   public function build() {
-    return [
-      '#markup' => '<h1 class="visually-hidden">Home</h1><div id="leaflet_map_timeline"></div>',
+    $block = [];
+    $block['header1'] = [
+      '#markup' => '<h1 clASS="visually-hidden">Interactive Timeline Map</h1>',
+    ];
+    $block['leaflet_map_timeline'] = [
+      '#type' => 'container',
+      '#attributes' => ['id' => 'leaflet_map_timeline'],
       '#attached' => [
-        'library' => [
-          'leaflet_map_timeline/map-timeline',
-        ],
+        'library' => ['leaflet_map_timeline/map-timeline'],
       ],
     ];
+    return $block;
   }
 
   /**

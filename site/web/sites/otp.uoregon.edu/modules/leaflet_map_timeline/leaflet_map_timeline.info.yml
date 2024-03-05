@@ -3,10 +3,11 @@ type: module
 description: Provides a block which renders a Leaflet map with timeline controls.
 package: Custom
 core: 8.x
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 dependencies:
   - leaflet:leaflet
   - leaflet:leaflet_markercluster
   - drupal:jsonapi
+  - drupal:jsonapi_page_limit
   - jsonapi_image_styles:jsonapi_image_styles
-  - jsonapi_page_limit:jsonapi_page_limit
+version: '9.x-1.0'

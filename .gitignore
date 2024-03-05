@@ -1,1 +1,6 @@
 *.DS_Store
+*.code-workspace
+
+# Do not track changes in the database directory, but keep the directory.
+database/*
+-database/.gitkeep
