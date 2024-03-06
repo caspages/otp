@@ -1061,7 +1061,7 @@ display:
           admin_label: ''
           plugin_id: text_custom
           empty: false
-          content: '<p>Click the ''CSV'' button below the table to export a CSV of the data.</p>'
+          content: "<p>Click the 'CSV' button below the table to export a CSV of the data.</p>"
           tokenize: false
         result:
           id: result

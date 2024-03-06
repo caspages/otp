@@ -5,6 +5,7 @@ dependencies:
   config:
     - views.view.mt_testimonials_carousel
   module:
+    - node
     - views
   theme:
     - corporate_lite
@@ -19,7 +20,15 @@ settings:
   label: ''
   label_display: '0'
   provider: views
-  context_mapping: {  }
+  context_mapping:
+    nid: '@node.node_route_context:node'
   views_label: ''
   items_per_page: none
-visibility: {  }
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      theater: theater

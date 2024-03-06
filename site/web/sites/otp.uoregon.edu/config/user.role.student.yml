@@ -13,7 +13,6 @@ dependencies:
     - file
     - filter
     - node
-    - quickedit
     - search
     - system
     - toolbar
@@ -25,7 +24,6 @@ permissions:
   - 'access content overview'
   - 'access contextual links'
   - 'access files overview'
-  - 'access in-place editing'
   - 'access related_cities_and_theaters entity browser pages'
   - 'access toolbar'
   - 'access user profiles'
@@ -33,6 +31,7 @@ permissions:
   - 'create theater content'
   - 'delete any theater content'
   - 'delete own article content'
+  - 'delete own files'
   - 'delete own theater content'
   - 'delete theater revisions'
   - 'edit any theater content'

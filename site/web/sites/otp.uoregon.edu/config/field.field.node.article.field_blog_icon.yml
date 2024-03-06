@@ -12,7 +12,7 @@ field_name: field_blog_icon
 entity_type: node
 bundle: article
 label: 'Blog icon'
-description: 'Please select an available icon. It will be displayed under the ''latest research'' section on related cities and theaters.'
+description: "Please select an available icon. It will be displayed under the 'latest research' section on related cities and theaters."
 required: false
 translatable: false
 default_value: {  }
