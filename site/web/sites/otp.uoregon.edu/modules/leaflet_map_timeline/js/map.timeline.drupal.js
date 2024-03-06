@@ -43,7 +43,7 @@
 
       /* Define the default marker icon for the theater pins on the map. */
       const theaterIconUrl = lookupSetting('markerIconUrl',
-        '/sites/otp.uoregon.edu/modules/leaflet_map_timeline/film-roll.png');
+        '/sites/otp.uoregon.edu/modules/leaflet_map_timeline/assets/film-roll.png');
       const theaterIcon = L.icon({
         iconUrl: theaterIconUrl,
         iconSize: [32, 32],
