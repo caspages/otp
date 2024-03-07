@@ -10,7 +10,7 @@ type: 'canonical_entities:node'
 pattern: 'cities/[node:title]'
 selection_criteria:
   8ffa26d6-4e47-4f88-aaa3-59be8a804379:
-    id: node_type
+    id: 'entity_bundle:node'
     negate: false
     uuid: 8ffa26d6-4e47-4f88-aaa3-59be8a804379
     context_mapping:

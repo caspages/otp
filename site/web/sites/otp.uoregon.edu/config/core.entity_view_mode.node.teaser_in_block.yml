@@ -6,5 +6,6 @@ dependencies:
     - node
 id: node.teaser_in_block
 label: 'Teaser In Block'
+description: ''
 targetEntityType: node
 cache: true

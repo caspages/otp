@@ -21,7 +21,7 @@ git clone https://github.com/caspages/otp.git
 
 ### Option 1: Drupal
 
-If you have your local LAMP enviroment, please follow the Drupal installation guide here: [https://www.drupal.org/docs/installing-drupal](https://www.drupal.org/docs/installing-drupal). The composer file is also provided in this repo.
+If you have your local LAMP enviroment, please follow the Drupal installation guide here: [https://www.drupal.org/docs/installing-drupal](https://www.drupal.org/docs/installing-drupal). The composer file is also provided in this repo (in `site/`).
 
 #### Import Database
 

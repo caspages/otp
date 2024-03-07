@@ -40,6 +40,12 @@ code: |-
   .quick-facts-header {
     margin-bottom: 20px;
   }
+  figure.caption {
+      font-style: italic;
+      font-size: 14px;
+      text-align: center;
+      margin: 15px 0;
+  }
   .views-field-field-works-cited .item-list ul {
     list-style-type: none;
   }
@@ -70,8 +76,74 @@ code: |-
     margin-top: 0; 
   }
   .leaflet-container {
-    border: #3e5702 3px solid;
+    border: #9e9d24 3px solid;
   }
+
+  /* General styles. */
+  .form-item__description {
+      margin: var(--space-xs) 0;
+  }
+
+  /*
+   * Multiple value fields -- no header background, stretch remove buttons to
+   * cover the cell, and make the spacing look better for the description and
+   * add new value button.
+   */
+  .tabledrag-toggle-weight-wrapper {
+      margin-top: 0;
+  }
+
+  .field-multiple-table th {
+      background: transparent;
+  }
+
+  .field-multiple-table tr.draggable input.button {
+      margin: 0;
+      width: 100%;
+  }
+
+  .form-item--multiple .form-item__description {
+      margin: var(--space-m);
+  }
+
+  .form-item--multiple .field-actions {
+      padding: 0;
+      margin: var(--space-m);
+  }
+
+  /*
+   * Theater header start and end dates side-by-side.
+   */
+  .field--name-field-header-date .form-date,
+  .field--name-field-header-date .form-type--date {
+      width: 100%;
+  }
+
+  .field--name-field-header-date .fieldset__wrapper {
+      display: flex;
+      justify-items: center;
+      gap: var(--space-m);
+  }
+
+  .field--name-field-header-date .form-datetime-wrapper {
+      margin: 0;
+      flex: 1 1 50%;
+  }
+
+  /*
+   * Theater location lat/lng side-by-side.
+   */
+  .field--type-geofield .fieldset__wrapper {
+      display: flex;
+      flex-flow: row wrap;
+      gap: var(--space-m);
+  }
+
+  .field--type-geofield .form-type--textfield {
+      flex: 1 1;
+      margin: 0;
+  }
+
 
   /* Theater list and map in City page*/
   .city-theater-list {

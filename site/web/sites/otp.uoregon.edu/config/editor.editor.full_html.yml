@@ -1,72 +1,101 @@
-uuid: 1e868a41-9faf-46a7-9997-eb2d976f5f6c
+uuid: 7494ce2e-d773-4718-b6e9-1e963bdeb3cb
 langcode: en
 status: true
 dependencies:
   config:
     - filter.format.full_html
   module:
-    - ckeditor
-_core:
-  default_config_hash: 967ijj7p6i7rwrYl7r08WQFeCY_c23YAh0h8u-w_CXM
+    - ckeditor5
 format: full_html
-editor: ckeditor
+editor: ckeditor5
 settings:
   toolbar:
-    rows:
-      -
-        -
-          name: Formatting
-          items:
-            - Bold
-            - Italic
-            - Strike
-            - Superscript
-            - Subscript
-            - '-'
-            - RemoveFormat
-            - JustifyLeft
-            - JustifyCenter
-            - JustifyRight
-        -
-          name: Linking
-          items:
-            - DrupalLink
-            - DrupalUnlink
-        -
-          name: Lists
-          items:
-            - BulletedList
-            - NumberedList
-        -
-          name: Media
-          items:
-            - Blockquote
-            - DrupalImage
-            - Table
-            - HorizontalRule
-        -
-          name: 'Block Formatting'
-          items:
-            - Format
-        -
-          name: Tools
-          items:
-            - Styles
-            - ShowBlocks
-            - Source
-            - Maximize
-            - cinetheaterpasteformat
+    items:
+      - bold
+      - italic
+      - strikethrough
+      - '|'
+      - superscript
+      - subscript
+      - '|'
+      - removeFormat
+      - '|'
+      - alignment
+      - '|'
+      - link
+      - '|'
+      - bulletedList
+      - numberedList
+      - '|'
+      - blockQuote
+      - indent
+      - outdent
+      - '|'
+      - drupalInsertImage
+      - insertTable
+      - horizontalLine
+      - '|'
+      - heading
+      - '|'
+      - style
+      - sourceEditing
+      - '|'
+      - undo
+      - redo
   plugins:
-    drupallink:
+    ckeditor5_alignment:
+      enabled_alignments:
+        - left
+        - center
+        - right
+        - justify
+    ckeditor5_heading:
+      enabled_headings:
+        - heading2
+        - heading3
+        - heading4
+        - heading5
+        - heading6
+    ckeditor5_imageResize:
+      allow_resize: true
+    ckeditor5_list:
+      properties:
+        reversed: true
+        startIndex: true
+      multiBlock: true
+    ckeditor5_sourceEditing:
+      allowed_tags:
+        - '<dl class>'
+        - '<dt class id>'
+        - '<dd class id>'
+        - '<abbr title class>'
+    ckeditor5_style:
+      styles:
+        -
+          label: 'Hide Header'
+          element: '<h1 class="visually-hidden">'
+        -
+          label: 'Remove Top Margin'
+          element: '<h2 class="remove-top-margin">'
+        -
+          label: 'Header with title class'
+          element: '<h2 class="title">'
+    editor_advanced_link_link:
+      enabled_attributes:
+        - aria-label
+        - class
+        - id
+        - rel
+        - target
+        - title
+    linkit_extension:
       linkit_enabled: true
       linkit_profile: default
-    stylescombo:
-      styles: "h1.visually-hidden|Hide Header\r\nh2.remove-top-margin|Remove Top Margin\r\nh2.title|Header with title class"
 image_upload:
   status: true
   scheme: public
   directory: inline-images
   max_size: '32 MB'
   max_dimensions:
-    width: null
-    height: null
+    width: 0
+    height: 0

@@ -11,15 +11,12 @@ name: 'Basic HTML'
 format: basic_html
 weight: -9
 filters:
-  filter_html:
-    id: filter_html
-    provider: filter
+  editor_file_reference:
+    id: editor_file_reference
+    provider: editor
     status: true
-    weight: -10
-    settings:
-      allowed_html: '<em> <strong> <cite> <blockquote cite> <code> <ul type> <ol start type> <li> <dl> <dt> <dd> <h2 id> <h3 id> <h4 id> <h5 id> <h6 id> <p> <br> <span> <img src alt height width data-entity-type data-entity-uuid data-align data-caption> <a href hreflang data-entity-substitution data-entity-type data-entity-uuid title>'
-      filter_html_help: false
-      filter_html_nofollow: false
+    weight: 11
+    settings: {  }
   filter_align:
     id: filter_align
     provider: filter
@@ -32,11 +29,20 @@ filters:
     status: true
     weight: 8
     settings: {  }
-  editor_file_reference:
-    id: editor_file_reference
-    provider: editor
+  filter_html:
+    id: filter_html
+    provider: filter
     status: true
-    weight: 11
+    weight: -10
+    settings:
+      allowed_html: '<br> <p> <h2> <h3> <h4> <h5> <h6> <cite> <blockquote cite> <dl> <dt> <dd> <span> <a href hreflang data-entity-substitution data-entity-type data-entity-uuid title id> <strong> <em> <code> <ul> <ol start> <li> <img src alt height width data-entity-uuid data-entity-type data-caption data-align>'
+      filter_html_help: false
+      filter_html_nofollow: false
+  filter_image_lazy_load:
+    id: filter_image_lazy_load
+    provider: filter
+    status: true
+    weight: 12
     settings: {  }
   linkit:
     id: linkit

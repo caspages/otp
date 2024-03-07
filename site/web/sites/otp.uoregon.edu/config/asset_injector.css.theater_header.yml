@@ -36,14 +36,14 @@ code: |-
     z-index: 10;
     opacity: 0.99;
     padding: 20px 0;
-    background-color: rgba(62, 87, 2, 0.95);
+    background-color: rgba(158, 157, 36, 0.95);
   }
   .header-content .page-title {
     font-size: 36px;
     margin: 0;
   }
   .no-header-image {
-    background-image: url("https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/mthood.png");
+    background-image: url("/sites/otp.uoregon.edu/modules/leaflet_map_timeline/assets/mt-hood.png");
   }
   .breadcrumb-content {
     text-align: left;

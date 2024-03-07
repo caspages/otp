@@ -12,7 +12,7 @@ field_name: field_image
 entity_type: node
 bundle: theater
 label: 'Gallery image(s)'
-description: 'Upload one to many images to display in a gallery slideshow. Each image''s ''title'' text displays below the image as a caption. Recommended pixel dimensions - W: 500 px / H: 500 px or 1:1 ratio. If you choose an image that is smaller than W: 500 px / H: 500 px the image will be stretched to fit the remaining space causing the image to appear blurry. If you choose a bigger image, the gallery will only display a center cropped version of the image of dimensions W: 500 px / H: 500.'
+description: "Upload one to many images to display in a gallery slideshow. Each image's 'title' text displays below the image as a caption. Recommended pixel dimensions - W: 500 px / H: 500 px or 1:1 ratio. If you choose an image that is smaller than W: 500 px / H: 500 px the image will be stretched to fit the remaining space causing the image to appear blurry. If you choose a bigger image, the gallery will only display a center cropped version of the image of dimensions W: 500 px / H: 500."
 required: false
 translatable: true
 default_value: {  }

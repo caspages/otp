@@ -18,7 +18,7 @@ dependencies:
 id: latest_find_promoted
 label: 'Our Latest Find'
 module: views
-description: 'Displays theater node with the ''promoted to home page'' filed checked.'
+description: "Displays theater node with the 'promoted to home page' filed checked."
 tag: ''
 base_table: node_field_data
 base_field: nid

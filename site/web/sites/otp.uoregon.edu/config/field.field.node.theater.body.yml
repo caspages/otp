@@ -12,7 +12,7 @@ field_name: body
 entity_type: node
 bundle: theater
 label: Summary
-description: 'This will override the text displayed in the ''Our latest find'' section on the home page.'
+description: "This will override the text displayed in the 'Our latest find' section on the home page."
 required: false
 translatable: true
 default_value: {  }

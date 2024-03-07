@@ -511,22 +511,36 @@ display:
             field_location: field_location
           entity_source: __base_table
           name_field: title
-          description_field: nothing
-          view_mode: full
+          leaflet_tooltip:
+            value: ''
+            options: '{"permanent":false,"direction":"center"}'
+          leaflet_popup:
+            value: nothing
+            options: '{"maxWidth":"300","minWidth":"50","autoPan":true}'
+            view_mode: full
           leaflet_map: 'OSM Mapnik'
           height: '550'
           height_unit: px
           hide_empty_map: false
           disable_wheel: true
           gesture_handling: false
+          fitbounds_options: '{"padding":[0,0]}'
           reset_map:
             control: false
-            position: topright
+            options: '{"position":"topleft","title":"Reset View"}'
+          map_scale:
+            control: false
+            options: '{"position":"bottomright","maxWidth":100,"metric":true,"imperial":false,"updateWhenIdle":false}'
+          locate:
+            control: false
+            options: '{"position":"topright","setView":"untilPanOrZoom","returnToPrevBounds":true,"keepCurrentZoomLevel":true,"strings":{"title":"Locate my position"}}'
+            automatic: false
           map_position:
             force: false
             center:
               lat: 43.804133
               lon: -120.554201
+            zoomControlPosition: topleft
             zoom: 12
             minZoom: 7
             maxZoom: 18
@@ -534,7 +548,7 @@ display:
           weight: ''
           icon:
             iconType: marker
-            iconUrl: 'https://oregontheaterproject.uoregon.edu/themes/corporateplus/images/map_icons/film-roll.png'
+            iconUrl: /sites/otp.uoregon.edu/modules/leaflet_map_timeline/assets/film-roll.png
             shadowUrl: ''
             className: ''
             iconSize:
@@ -557,8 +571,9 @@ display:
             circle_marker_options: '{"radius":100,"color":"red","fillColor":"#f03","fillOpacity":0.5}'
           leaflet_markercluster:
             control: true
-            options: '{"spiderfyOnMaxZoom":true,"showCoverageOnHover":true,"removeOutsideVisibleBounds":false}'
             include_path: false
+            options: '{"spiderfyOnMaxZoom":true,"showCoverageOnHover":true,"removeOutsideVisibleBounds":false}'
+            excluded: '0'
           fullscreen:
             control: true
             options: '{"position":"topleft","pseudoFullscreen":false}'
@@ -566,6 +581,9 @@ display:
           geocoder:
             control: false
             settings:
+              autocomplete:
+                placeholder: 'Search Address'
+                title: 'Search an Address on the Map'
               position: topright
               input_size: 25
               min_terms: 4
@@ -573,6 +591,10 @@ display:
               zoom: 16
               popup: false
               options: ''
+          map_lazy_load:
+            lazy_load: false
+          feature_properties:
+            values: ''
       row:
         type: fields
       query:
@@ -626,7 +648,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -969,7 +990,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
