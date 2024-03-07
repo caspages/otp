@@ -1,7 +1,7 @@
 # Oregon Theater Project Prototype Site
 This repository includes all the files needed to replicate the Oregon Theater Project website on your server or local Docker.
 
-The site is built in Drupal 9.x with PHP 8.1 and above. Please refer to this link for more details about the Drupal system requirements: [https://www.drupal.org/docs/system-requirements](https://www.drupal.org/docs/system-requirements)
+The site is built in Drupal 10.x with PHP 8.1 and above. Please refer to this link for more details about the Drupal system requirements: [https://www.drupal.org/docs/system-requirements](https://www.drupal.org/docs/system-requirements)
 
 The live website can be viewed here: [https://oregontheaterproject.uoregon.edu](https://oregontheaterproject.uoregon.edu)
 
@@ -75,7 +75,7 @@ Password: example_admin
 We created a custom module `Leaflet Map Timeline` to visualize the timeline map in the homepage. The main control is built on the JavaScript code and JSON API endpoint. This JS file will be the main one you will need to edit.
 
 ```
-\otp.uoregon.edu\modules\leaflet_map_timeline\map.timeline.drupal.js
+\site\web\sites\otp.uoregon.edu\modules\leaflet_map_timeline\js\map.timeline.drupal.js
 ```
 
 Replace `film-roll.png` in the JS file with some icon you want to use. It is the theater marker in the timeline map.
